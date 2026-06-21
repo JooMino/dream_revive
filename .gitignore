@@ -1,0 +1,25 @@
+# Local Python environment
+.venv/
+__pycache__/
+*.py[cod]
+
+# Codex/local workspace metadata
+.agents/
+.codex/
+
+# Large source datasets and generated GIS sidecars
+*.shp
+*.shx
+*.dbf
+*.prj
+*.sbn
+*.sbx
+*.shp.xml
+*.zip
+
+# Large reference documents
+*.pdf
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

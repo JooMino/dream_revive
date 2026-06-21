@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>화성시 산불 순찰 최적화 지도</title>
+  <style>
+    :root {
+      --bg: #f4f6f1;
+      --panel: #ffffff;
+      --ink: #1d251f;
+      --muted: #627066;
+      --line: #d9dfd5;
+      --accent: #2f6b47;
+      --danger: #b3261e;
+      --route: #1f78b4;
+      --shadow: 0 14px 36px rgba(22, 35, 25, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-rows: 58px 1fr;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfa;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      background: var(--panel);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 260px;
+      gap: 14px;
+      min-height: 0;
+      padding: 14px;
+    }
+
+    .panel {
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric {
+      min-height: 74px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fafbf9;
+    }
+
+    .metric b {
+      display: block;
+      font-size: 21px;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .legend {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 13px;
+    }
+
+    .legend li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .legend-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .weight {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .map-panel {
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+      border: 1px solid #c8d1c4;
+      border-radius: 8px;
+      background: #dfe6dc;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .map-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      border: 0;
+      background: #e7ece4;
+    }
+
+    .map-title {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 2;
+      max-width: min(520px, calc(100% - 28px));
+      padding: 10px 12px;
+      border: 1px solid rgba(20, 32, 22, 0.18);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 8px 24px rgba(24, 36, 26, 0.14);
+      pointer-events: none;
+    }
+
+    .map-title strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .map-title span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .priority-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .priority-list li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 9px;
+      align-items: center;
+      min-height: 42px;
+    }
+
+    .rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--danger);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .priority-list b {
+      display: block;
+      font-size: 13px;
+    }
+
+    .priority-list span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .data-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      color: var(--muted);
+      list-style: none;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .data-list b {
+      color: var(--ink);
+    }
+
+    @media (max-width: 1100px) {
+      .workspace {
+        grid-template-columns: 240px minmax(0, 1fr);
+      }
+
+      .right {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        overflow: auto;
+      }
+
+      .shell {
+        height: auto;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px;
+      }
+
+      .brand {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .brand h1,
+      .brand span {
+        white-space: normal;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 10px;
+      }
+
+      .map-panel {
+        height: 72vh;
+      }
+
+      .right {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <h1>화성시 산불 순찰 최적화 지도</h1>
+        <span>임상도 · 산림입지토양도 · OpenStreetMap</span>
+      </div>
+      <nav class="actions" aria-label="지도 작업">
+        <a class="button" href="hwaseong_fire_patrol_map.html" target="_blank" rel="noopener">지도 원본</a>
+        <a class="button primary" href="generate_fire_patrol_map.py">생성 코드</a>
+      </nav>
+    </header>
+
+    <section class="workspace">
+      <aside class="panel side">
+        <section class="section">
+          <h2>현황</h2>
+          <div class="metric-grid">
+            <div class="metric">
+              <b>1,500</b>
+              <span>표시 구역</span>
+            </div>
+            <div class="metric">
+              <b>15</b>
+              <span>순찰 지점</span>
+            </div>
+            <div class="metric">
+              <b>35</b>
+              <span>중앙 라벨</span>
+            </div>
+            <div class="metric">
+              <b>5179</b>
+              <span>원본 좌표계</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>위험도</h2>
+          <ul class="legend">
+            <li><span class="legend-label"><span class="swatch" style="background:#b2182b"></span>매우 높음</span><span class="weight">9+</span></li>
+            <li><span class="legend-label"><span class="swatch" style="background:#ef8a62"></span>높음</span><span class="weight">7-8</span></li>
+            <li><span class="legend-label"><span class="swatch" style="background:#fddbc7"></span>보통</span><span class="weight">5-6</span></li>
+            <li><span class="legend-label"><span class="swatch" style="background:#d1e5f0"></span>낮음</span><span class="weight">3-4</span></li>
+            <li><span class="legend-label"><span class="swatch" style="background:#67a9cf"></span>매우 낮음</span><span class="weight">1-2</span></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>반영 데이터</h2>
+          <ul class="data-list">
+            <li><b>수림분포</b><br>식생, 밀도, 경급, 면적</li>
+            <li><b>산림입지토양도</b><br>경사도, 고도</li>
+            <li><b>노선</b><br>고위험 중심점 근사 연결</li>
+          </ul>
+        </section>
+      </aside>
+
+      <section class="map-panel" aria-label="화성시 산불 위험도 지도">
+        <div class="map-title">
+          <strong>화성시 산림 위험도 및 순찰 노선</strong>
+          <span>지도 영역은 화성시 산림 데이터 범위로 제한됨</span>
+        </div>
+        <iframe class="map-frame" src="hwaseong_fire_patrol_map.html" title="화성시 산불 위험도 지도"></iframe>
+      </section>
+
+      <aside class="panel side right">
+        <section class="section">
+          <h2>순찰 우선</h2>
+          <ol class="priority-list">
+            <li><span class="rank">1</span><div><b>고위험 산림</b><span>침엽수림 · 대면적</span></div></li>
+            <li><span class="rank">2</span><div><b>확산 취약 구역</b><span>경사도 · 고도 반영</span></div></li>
+            <li><span class="rank">3</span><div><b>접근 경로</b><span>중심점 기반 순서화</span></div></li>
+          </ol>
+        </section>
+
+        <section class="section">
+          <h2>다음 레이어</h2>
+          <ul class="data-list">
+            <li><b>공장</b><br>주소 좌표 변환 후 점 레이어</li>
+            <li><b>묘지·농지</b><br>발화 요인 거리 가중치</li>
+            <li><b>산명</b><br>지명 좌표 또는 산명 컬럼</li>
+          </ul>
+        </section>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
