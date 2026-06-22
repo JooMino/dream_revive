@@ -39,6 +39,76 @@
       padding: 3px 6px;
       white-space: nowrap;
     }
+    .osm-mountain-range-label-generated {
+      border-color: rgba(37, 99, 235, .42);
+      color: #17345f;
+      background: rgba(239, 246, 255, .92);
+      font-size: 12px;
+    }
+    .osm-mountain-name-button {
+      display: inline-flex;
+      align-items: center;
+      max-width: 220px;
+      padding: 2px 6px;
+      border: 1px solid rgba(37, 99, 235, .28);
+      border-radius: 5px;
+      color: #17345f;
+      background: #eff6ff;
+      font: 800 12px/1.25 "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      cursor: pointer;
+    }
+    .osm-mountain-name-button:hover,
+    .osm-mountain-name-button:focus-visible {
+      border-color: #2563eb;
+      outline: none;
+    }
+    .osm-mountain-name-editor {
+      display: grid;
+      grid-template-columns: 78px minmax(120px, 1fr) auto auto;
+      gap: 5px;
+      align-items: center;
+    }
+    .osm-mountain-name-input {
+      min-width: 0;
+      height: 26px;
+      padding: 3px 6px;
+      border: 1px solid rgba(31, 41, 55, .28);
+      border-radius: 5px;
+      font: 700 12px/1.25 "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+    }
+    .osm-mountain-size-select {
+      height: 26px;
+      padding: 3px 6px;
+      border: 1px solid rgba(31, 41, 55, .28);
+      border-radius: 5px;
+      font: 700 12px/1.25 "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      background: #fff;
+    }
+    .osm-mountain-name-action {
+      height: 26px;
+      padding: 0 7px;
+      border: 1px solid rgba(31, 41, 55, .22);
+      border-radius: 5px;
+      color: #1f2937;
+      background: #fff;
+      font: 800 12px/1 "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      cursor: pointer;
+    }
+    .osm-mountain-name-action.primary {
+      border-color: #2563eb;
+      color: #fff;
+      background: #2563eb;
+    }
+    .osm-mountain-name-action.danger {
+      border-color: #b91c1c;
+      color: #fff;
+      background: #b91c1c;
+    }
+    .osm-mountain-name-action.restore {
+      border-color: #15803d;
+      color: #fff;
+      background: #15803d;
+    }
   `;
   document.head.appendChild(styleEl);
 
@@ -54,15 +124,295 @@
     });
   }
 
+  const CUSTOM_NAME_STORAGE_KEY = "dreamOsmMountainCustomNames";
+  const REPRESENTATIVE_COORD_STORAGE_KEY = "dreamOsmMountainRepresentativeCoordinates";
+  const customNames = loadCustomNames();
+  const representativeCoordinates = {};
+
+  function loadCustomNames() {
+    try {
+      if (!window.localStorage) {
+        return {};
+      }
+      return JSON.parse(window.localStorage.getItem(CUSTOM_NAME_STORAGE_KEY) || "{}");
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function saveCustomNames() {
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem(CUSTOM_NAME_STORAGE_KEY, JSON.stringify(customNames));
+      }
+    } catch (error) {
+      // Keep the in-memory name even when browser storage is unavailable.
+    }
+  }
+
+  function featureKey(feature) {
+    const props = feature.properties || {};
+    return props["@id"] || feature.id || "";
+  }
+
+  function baseDisplayName(props) {
+    return props.dreamCustomName || props.name || props.dreamGeneratedName || "";
+  }
+
+  function fullDisplayName(props) {
+    if (props.dreamNameHidden) {
+      return "";
+    }
+    const baseName = baseDisplayName(props);
+    const sizeTag = props.dreamCustomSizeTag || props.dreamSizeTag;
+    return baseName ? `[${sizeTag}] ${baseName}` : "";
+  }
+
+  function isEditableGeneratedName(feature) {
+    const props = feature.properties || {};
+    return Boolean(props.name || props.dreamGeneratedName);
+  }
+
+  const EARTH_RADIUS_METERS = 6378137;
+  const SIZE_THRESHOLDS = [
+    { tag: "대형", minArea: 500000 },
+    { tag: "중형", minArea: 100000 },
+    { tag: "소형", minArea: 30000 },
+    { tag: "초소형", minArea: 0 },
+  ];
+
+  function ringAreaSqm(ring) {
+    if (!Array.isArray(ring) || ring.length < 3) {
+      return 0;
+    }
+
+    const latitudeOrigin =
+      (ring.reduce((sum, point) => sum + (point[1] || 0), 0) / ring.length) *
+      (Math.PI / 180);
+    const points = ring.map(function (point) {
+      return [
+        EARTH_RADIUS_METERS * point[0] * (Math.PI / 180) * Math.cos(latitudeOrigin),
+        EARTH_RADIUS_METERS * point[1] * (Math.PI / 180),
+      ];
+    });
+
+    let area = 0;
+    for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+      area += points[j][0] * points[i][1] - points[i][0] * points[j][1];
+    }
+    return Math.abs(area) / 2;
+  }
+
+  function polygonAreaSqm(coordinates) {
+    if (!Array.isArray(coordinates) || !coordinates.length) {
+      return 0;
+    }
+
+    const outerArea = ringAreaSqm(coordinates[0]);
+    const innerArea = coordinates
+      .slice(1)
+      .reduce((total, ring) => total + ringAreaSqm(ring), 0);
+    return Math.max(0, outerArea - innerArea);
+  }
+
+  function featureAreaSqm(feature) {
+    const geometry = feature.geometry || {};
+    if (geometry.type === "Polygon") {
+      return polygonAreaSqm(geometry.coordinates);
+    }
+    if (geometry.type === "MultiPolygon") {
+      return geometry.coordinates.reduce(
+        (total, polygon) => total + polygonAreaSqm(polygon),
+        0
+      );
+    }
+    return 0;
+  }
+
+  function flattenCoordinates(geometry) {
+    const result = [];
+    function walk(value) {
+      if (!Array.isArray(value)) {
+        return;
+      }
+      if (typeof value[0] === "number" && typeof value[1] === "number") {
+        result.push(value);
+        return;
+      }
+      value.forEach(walk);
+    }
+    walk(geometry && geometry.coordinates);
+    return result;
+  }
+
+  function ringCentroid(ring, referenceLatitude) {
+    if (!Array.isArray(ring) || ring.length < 3) {
+      return null;
+    }
+
+    let twiceArea = 0;
+    let centerX = 0;
+    let centerY = 0;
+    ring.forEach((point, index) => {
+      const next = ring[(index + 1) % ring.length];
+      const x1 = EARTH_RADIUS_METERS * point[0] * (Math.PI / 180) * Math.cos(referenceLatitude);
+      const y1 = EARTH_RADIUS_METERS * point[1] * (Math.PI / 180);
+      const x2 = EARTH_RADIUS_METERS * next[0] * (Math.PI / 180) * Math.cos(referenceLatitude);
+      const y2 = EARTH_RADIUS_METERS * next[1] * (Math.PI / 180);
+      const cross = x1 * y2 - x2 * y1;
+      twiceArea += cross;
+      centerX += (x1 + x2) * cross;
+      centerY += (y1 + y2) * cross;
+    });
+
+    if (!twiceArea) {
+      return null;
+    }
+
+    return {
+      area: twiceArea / 2,
+      x: centerX / (3 * twiceArea),
+      y: centerY / (3 * twiceArea),
+    };
+  }
+
+  function featureRepresentativeCoordinate(feature) {
+    const geometry = feature.geometry || {};
+    const allCoords = flattenCoordinates(geometry);
+    if (!allCoords.length) {
+      return null;
+    }
+
+    const referenceLatitude =
+      (allCoords.reduce((sum, point) => sum + point[1], 0) / allCoords.length) *
+      (Math.PI / 180);
+    let weightedX = 0;
+    let weightedY = 0;
+    let totalWeight = 0;
+
+    function addPolygon(polygon) {
+      if (!Array.isArray(polygon) || !polygon.length) {
+        return;
+      }
+      polygon.forEach((ring, index) => {
+        const centroid = ringCentroid(ring, referenceLatitude);
+        if (!centroid) {
+          return;
+        }
+        const weight = index === 0 ? Math.abs(centroid.area) : -Math.abs(centroid.area);
+        weightedX += centroid.x * weight;
+        weightedY += centroid.y * weight;
+        totalWeight += weight;
+      });
+    }
+
+    if (geometry.type === "Polygon") {
+      addPolygon(geometry.coordinates);
+    } else if (geometry.type === "MultiPolygon") {
+      geometry.coordinates.forEach(addPolygon);
+    }
+
+    if (totalWeight > 0) {
+      return {
+        lat: Number(((weightedY / totalWeight / EARTH_RADIUS_METERS) * 180 / Math.PI).toFixed(7)),
+        lon: Number(((weightedX / totalWeight / (EARTH_RADIUS_METERS * Math.cos(referenceLatitude))) * 180 / Math.PI).toFixed(7)),
+      };
+    }
+
+    return {
+      lat: Number((allCoords.reduce((sum, point) => sum + point[1], 0) / allCoords.length).toFixed(7)),
+      lon: Number((allCoords.reduce((sum, point) => sum + point[0], 0) / allCoords.length).toFixed(7)),
+    };
+  }
+
+  function saveRepresentativeCoordinates() {
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem(
+          REPRESENTATIVE_COORD_STORAGE_KEY,
+          JSON.stringify(representativeCoordinates)
+        );
+      }
+    } catch (error) {
+      // Coordinates are still available in window.dreamOsmMountainRangeLayer.
+    }
+  }
+
+  function sizeTag(areaSqm) {
+    return SIZE_THRESHOLDS.find((item) => areaSqm >= item.minArea).tag;
+  }
+
+  function formatArea(areaSqm) {
+    if (areaSqm >= 1000000) {
+      return `${(areaSqm / 1000000).toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+      })}㎢`;
+    }
+    return `${Math.round(areaSqm).toLocaleString("ko-KR")}㎡`;
+  }
+
+  function assignGeneratedNames() {
+    const rankedFeatures = rangeData.features
+      .map((feature) => ({
+        feature,
+        area: featureAreaSqm(feature),
+      }))
+      .filter((item) => item.area > 0)
+      .sort((a, b) => {
+        if (b.area !== a.area) {
+          return b.area - a.area;
+        }
+        return String(a.feature.id || "").localeCompare(String(b.feature.id || ""));
+      });
+
+    let generatedCount = 0;
+    rankedFeatures.forEach((item) => {
+      const props = item.feature.properties || {};
+      item.feature.properties = props;
+      props.dreamAreaSqm = item.area;
+      props.dreamAreaLabel = formatArea(item.area);
+      props.dreamSizeTag = sizeTag(item.area);
+      props.dreamRepresentativeCoordinate = featureRepresentativeCoordinate(item.feature);
+
+      const savedEdit = customNames[featureKey(item.feature)];
+      if (typeof savedEdit === "string" && savedEdit) {
+        props.dreamCustomName = savedEdit;
+      } else if (savedEdit && typeof savedEdit === "object") {
+        if (savedEdit.name) {
+          props.dreamCustomName = savedEdit.name;
+        }
+        if (savedEdit.sizeTag) {
+          props.dreamCustomSizeTag = savedEdit.sizeTag;
+        }
+        props.dreamNameHidden = savedEdit.hidden === true;
+      }
+
+      if (!props.name) {
+        generatedCount += 1;
+        props.dreamGeneratedName = `무명산 ${String(generatedCount).padStart(3, "0")}`;
+      }
+
+      props.dreamDisplayName = fullDisplayName(props);
+      if (props.dreamRepresentativeCoordinate) {
+        representativeCoordinates[featureKey(item.feature)] = props.dreamRepresentativeCoordinate;
+      }
+    });
+
+    summary.generatedNames = generatedCount;
+    saveRepresentativeCoordinates();
+  }
+
+  assignGeneratedNames();
+
   function kindLabel(feature) {
     const props = feature.properties || {};
     if (props.natural === "wood") {
-      return "???/??";
+      return "산림/숲";
     }
     if (props.landuse === "forest") {
-      return "?? ????";
+      return "토지이용 산림";
     }
-    return props.natural || props.landuse || "??";
+    return props.natural || props.landuse || "기타";
   }
 
   function featureStyle(feature) {
@@ -83,16 +433,227 @@
 
   function popupHtml(feature) {
     const props = feature.properties || {};
+    const displayName = props.dreamDisplayName || `[숨김] ${baseDisplayName(props)}`;
+    const nameHtml = isEditableGeneratedName(feature)
+      ? `<button class="osm-mountain-name-button" type="button" data-osm-name-edit="true">${escapeHtml(
+          displayName
+        )}</button>`
+      : escapeHtml(displayName || props.name);
     const rows = [
-      ["??", props.name],
-      ["??", kindLabel(feature)],
-      ["OSM ID", props["@id"] || feature.id],
-      ["???", `OpenStreetMap Overpass ${summary.timestamp || ""}`.trim()],
+      `<tr><th>이름</th><td data-osm-name-cell="true">${nameHtml}</td></tr>`,
+      `<tr><th>라벨</th><td>${props.dreamNameHidden ? "숨김" : "표시"}</td></tr>`,
+      `<tr><th>크기</th><td>${escapeHtml(props.dreamCustomSizeTag || props.dreamSizeTag)}</td></tr>`,
+      `<tr><th>면적</th><td>${escapeHtml(props.dreamAreaLabel)}</td></tr>`,
+      `<tr><th>대표 좌표</th><td>${props.dreamRepresentativeCoordinate ? `${props.dreamRepresentativeCoordinate.lat.toFixed(7)}, ${props.dreamRepresentativeCoordinate.lon.toFixed(7)}` : ""}</td></tr>`,
+      `<tr><th>분류</th><td>${escapeHtml(kindLabel(feature))}</td></tr>`,
+      `<tr><th>OSM ID</th><td>${escapeHtml(props["@id"] || feature.id)}</td></tr>`,
+      `<tr><th>출처</th><td>${escapeHtml(
+        `OpenStreetMap Overpass ${summary.timestamp || ""}`.trim()
+      )}</td></tr>`,
+      `<tr><th>작업</th><td>${
+        props.dreamNameHidden
+          ? `<button class="osm-mountain-name-action restore" type="button" data-osm-name-show="true">라벨 표시</button>`
+          : `<button class="osm-mountain-name-action danger" type="button" data-osm-name-hide="true">라벨 숨김</button>`
+      }</td></tr>`,
     ]
-      .filter((row) => row[1])
-      .map((row) => `<tr><th>${escapeHtml(row[0])}</th><td>${escapeHtml(row[1])}</td></tr>`)
       .join("");
     return `<div class="osm-mountain-range-popup"><table>${rows}</table></div>`;
+  }
+
+  function tooltipOptions(feature) {
+    const props = feature.properties || {};
+    const showPermanentLabel =
+      props.name || props.dreamSizeTag === "대형" || props.dreamSizeTag === "중형";
+    return {
+      permanent: showPermanentLabel,
+      sticky: !showPermanentLabel,
+      interactive: isEditableGeneratedName(feature),
+      direction: "center",
+      className: props.name
+        ? "osm-mountain-range-label"
+        : "osm-mountain-range-label osm-mountain-range-label-generated",
+    };
+  }
+
+  function syncTooltip(feature, featureLayer) {
+    const props = feature.properties || {};
+    const label = props.dreamDisplayName;
+    if (featureLayer.unbindTooltip) {
+      featureLayer.unbindTooltip();
+    }
+    if (label && featureLayer.getBounds && featureLayer.bindTooltip) {
+      featureLayer.bindTooltip(label, tooltipOptions(feature));
+    } else if (label && featureLayer.bindTooltip) {
+      featureLayer.bindTooltip(label, { sticky: true });
+    }
+  }
+
+  function refreshGeneratedName(feature, featureLayer) {
+    const props = feature.properties || {};
+    props.dreamDisplayName = fullDisplayName(props);
+    syncTooltip(feature, featureLayer);
+    if (featureLayer.setPopupContent) {
+      featureLayer.setPopupContent(popupHtml(feature));
+    }
+  }
+
+  function saveFeatureEdit(feature, values) {
+    const props = feature.properties || {};
+    Object.assign(props, values);
+    customNames[featureKey(feature)] = {
+      name: props.dreamCustomName || baseDisplayName(props),
+      sizeTag: props.dreamCustomSizeTag || props.dreamSizeTag,
+      hidden: props.dreamNameHidden === true,
+    };
+    saveCustomNames();
+  }
+
+  function openNameEditor(feature, featureLayer, popupElement) {
+    if (!isEditableGeneratedName(feature)) {
+      return;
+    }
+
+    const props = feature.properties || {};
+    const cell = popupElement.querySelector("[data-osm-name-cell]");
+    if (!cell) {
+      return;
+    }
+
+    cell.innerHTML = `
+      <div class="osm-mountain-name-editor">
+        <select class="osm-mountain-size-select" aria-label="크기">
+          ${["대형", "중형", "소형", "초소형"]
+            .map((tag) => `<option value="${tag}" ${tag === (props.dreamCustomSizeTag || props.dreamSizeTag) ? "selected" : ""}>${tag}</option>`)
+            .join("")}
+        </select>
+        <input class="osm-mountain-name-input" type="text" value="${escapeHtml(
+          baseDisplayName(props)
+        )}" aria-label="무명산 이름">
+        <button class="osm-mountain-name-action primary" type="button" data-osm-name-save="true">저장</button>
+        <button class="osm-mountain-name-action" type="button" data-osm-name-cancel="true">취소</button>
+      </div>
+    `;
+
+    const input = cell.querySelector(".osm-mountain-name-input");
+    const sizeSelect = cell.querySelector(".osm-mountain-size-select");
+    const saveButton = cell.querySelector("[data-osm-name-save]");
+    const cancelButton = cell.querySelector("[data-osm-name-cancel]");
+
+    function saveName() {
+      const nextName = input.value.trim();
+      if (!nextName) {
+        input.focus();
+        return;
+      }
+
+      props.dreamCustomName = nextName;
+      props.dreamCustomSizeTag = sizeSelect.value;
+      props.dreamNameHidden = false;
+      saveFeatureEdit(feature, {
+        dreamCustomName: nextName,
+        dreamCustomSizeTag: sizeSelect.value,
+        dreamNameHidden: false,
+      });
+      refreshGeneratedName(feature, featureLayer);
+    }
+
+    saveButton.addEventListener("click", saveName);
+    cancelButton.addEventListener("click", function () {
+      refreshGeneratedName(feature, featureLayer);
+    });
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        saveName();
+      } else if (event.key === "Escape") {
+        refreshGeneratedName(feature, featureLayer);
+      }
+    });
+    input.focus();
+    input.select();
+  }
+
+  function bindGeneratedNameEditor(feature, featureLayer) {
+    if (!featureLayer.on || !isEditableGeneratedName(feature)) {
+      return;
+    }
+
+    featureLayer.on("popupopen", function (event) {
+      const popupElement = event.popup && event.popup.getElement && event.popup.getElement();
+      if (!popupElement || popupElement.dataset.osmNameEditorBound === "true") {
+        return;
+      }
+
+      popupElement.dataset.osmNameEditorBound = "true";
+      popupElement.addEventListener("click", function (clickEvent) {
+        if (clickEvent.target.closest("[data-osm-name-edit]")) {
+          clickEvent.preventDefault();
+          openNameEditor(feature, featureLayer, popupElement);
+        } else if (clickEvent.target.closest("[data-osm-name-hide]")) {
+          clickEvent.preventDefault();
+          saveFeatureEdit(feature, { dreamNameHidden: true });
+          refreshGeneratedName(feature, featureLayer);
+        } else if (clickEvent.target.closest("[data-osm-name-show]")) {
+          clickEvent.preventDefault();
+          saveFeatureEdit(feature, { dreamNameHidden: false });
+          refreshGeneratedName(feature, featureLayer);
+        }
+      });
+    });
+  }
+
+  function bindGeneratedTooltipShortcut(feature, featureLayer) {
+    if (!featureLayer.on || !isEditableGeneratedName(feature)) {
+      return;
+    }
+
+    featureLayer.on("tooltipopen", function (event) {
+      const tooltipElement =
+        event.tooltip && event.tooltip.getElement && event.tooltip.getElement();
+      if (!tooltipElement || tooltipElement.dataset.osmNameClickBound === "true") {
+        return;
+      }
+
+      tooltipElement.dataset.osmNameClickBound = "true";
+      tooltipElement.style.cursor = "pointer";
+      tooltipElement.title = "이름 수정";
+      tooltipElement.addEventListener("click", function (clickEvent) {
+        clickEvent.preventDefault();
+        clickEvent.stopPropagation();
+        if (featureLayer.openPopup) {
+          featureLayer.openPopup();
+          window.setTimeout(function () {
+            const popupElement = document.querySelector(".leaflet-popup .osm-mountain-range-popup");
+            if (popupElement) {
+              openNameEditor(feature, featureLayer, popupElement);
+            }
+          }, 0);
+        }
+      });
+    });
+  }
+
+  function openEditorFromLayer(feature, featureLayer) {
+    if (!featureLayer.openPopup) {
+      return;
+    }
+
+    featureLayer.openPopup();
+    window.setTimeout(function () {
+      const popupElement = document.querySelector(".leaflet-popup .osm-mountain-range-popup");
+      if (popupElement) {
+        openNameEditor(feature, featureLayer, popupElement);
+      }
+    }, 0);
+  }
+
+  function bindGeneratedFeatureShortcut(feature, featureLayer) {
+    if (!featureLayer.on || !isEditableGeneratedName(feature)) {
+      return;
+    }
+
+    featureLayer.on("click", function () {
+      openEditorFromLayer(feature, featureLayer);
+    });
   }
 
   const layer = L.geoJSON(rangeData, {
@@ -100,15 +661,10 @@
     onEachFeature(feature, featureLayer) {
       const props = feature.properties || {};
       featureLayer.bindPopup(popupHtml(feature), { maxWidth: 320 });
-      if (props.name && featureLayer.getBounds) {
-        featureLayer.bindTooltip(props.name, {
-          permanent: true,
-          direction: "center",
-          className: "osm-mountain-range-label",
-        });
-      } else if (props.name) {
-        featureLayer.bindTooltip(props.name, { sticky: true });
-      }
+      bindGeneratedNameEditor(feature, featureLayer);
+      bindGeneratedTooltipShortcut(feature, featureLayer);
+      bindGeneratedFeatureShortcut(feature, featureLayer);
+      syncTooltip(feature, featureLayer);
     },
   });
 
@@ -119,12 +675,17 @@
   });
 
   if (layerControl && layerControl.addOverlay) {
-    layerControl.addOverlay(layer, `OSM ??/? ?? (${summary.features.toLocaleString("ko-KR")}?)`);
+    layerControl.addOverlay(
+      layer,
+      `OSM 산/숲 범위 (${summary.features.toLocaleString("ko-KR")}개)`
+    );
   }
 
   window.dreamOsmMountainRangeLayer = {
     data: rangeData,
     layer,
     summary,
+    customNames,
+    representativeCoordinates,
   };
 })();

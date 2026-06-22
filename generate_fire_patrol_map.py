@@ -763,7 +763,7 @@ def build_map(
     </div>
     """
     fmap.get_root().html.add_child(folium.Element(legend))
-    MiniMap(toggle_display=True).add_to(fmap)
+    MiniMap(toggle_display=True, minimized=True).add_to(fmap)
     folium.LayerControl(collapsed=False).add_to(fmap)
     fmap.save(output)
 

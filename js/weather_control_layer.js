@@ -52,6 +52,31 @@
       font-weight: 800;
       font-size: 13px;
     }
+    .weather-simulator-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 0;
+      padding: 0;
+      color: #1f2937;
+      background: transparent;
+      font: inherit;
+      cursor: pointer;
+    }
+    .weather-simulator-toggle::before {
+      content: "▾";
+      font-size: 12px;
+      color: #2563eb;
+    }
+    .weather-simulator-control.is-collapsed .weather-simulator-toggle::before {
+      content: "▸";
+    }
+    .weather-simulator-control.is-collapsed .weather-simulator-body {
+      display: none;
+    }
+    .weather-simulator-control.is-collapsed .weather-simulator-title {
+      margin-bottom: 0;
+    }
     .weather-simulator-chip {
       padding: 2px 6px;
       border-radius: 999px;
@@ -160,8 +185,18 @@
 
       const title = document.createElement("div");
       title.className = "weather-simulator-title";
-      title.innerHTML = `<span>가상 날씨</span><span class="weather-simulator-chip">지도 전체</span>`;
+      title.innerHTML = `<button type="button" class="weather-simulator-toggle" aria-expanded="true">가상 날씨</button><span class="weather-simulator-chip">지도 전체</span>`;
       container.appendChild(title);
+
+      const toggle = title.querySelector(".weather-simulator-toggle");
+      const body = document.createElement("div");
+      body.className = "weather-simulator-body";
+      container.appendChild(body);
+
+      toggle.addEventListener("click", function () {
+        const collapsed = container.classList.toggle("is-collapsed");
+        toggle.setAttribute("aria-expanded", String(!collapsed));
+      });
 
       fields.forEach(function (field) {
         const row = document.createElement("div");
@@ -242,7 +277,7 @@
         row.appendChild(label);
         row.appendChild(slider);
         row.appendChild(value);
-        container.appendChild(row);
+        body.appendChild(row);
       });
 
       return container;
