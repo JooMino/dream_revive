@@ -3,6 +3,15 @@
   "use strict";
 
   const config = window.dreamFactoryPriorityConfig || {};
+  if (config.showAllRoadNetwork !== true) {
+    window.dreamHwaseongAllRoadNetworkLayers = {
+      disabled: true,
+      nodes: null,
+      links: null
+    };
+    return;
+  }
+
   const map =
     config.map ||
     Object.keys(window)
