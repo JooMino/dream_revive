@@ -1,4 +1,4 @@
-// OSM mountain/forest range layer generated from C:/Users/t8110/Downloads/export.geojson.
+﻿// OSM mountain/forest range layer generated from C:/Users/t8110/Downloads/export.geojson.
 // Source: OpenStreetMap Overpass export, timestamp 2026-06-22T07:05:10Z.
 (function () {
   "use strict";
@@ -177,8 +177,7 @@
   const SIZE_THRESHOLDS = [
     { tag: "대형", minArea: 500000 },
     { tag: "중형", minArea: 100000 },
-    { tag: "소형", minArea: 30000 },
-    { tag: "초소형", minArea: 0 },
+    { tag: "소형", minArea: 0 },
   ];
 
   function ringAreaSqm(ring) {
@@ -382,7 +381,7 @@
           props.dreamCustomName = savedEdit.name;
         }
         if (savedEdit.sizeTag) {
-          props.dreamCustomSizeTag = savedEdit.sizeTag;
+          props.dreamCustomSizeTag = ["\uCD08\uC18C\uD615", "\uC0B0\uC815\uC0C1"].includes(savedEdit.sizeTag) ? "소형" : savedEdit.sizeTag;
         }
         props.dreamNameHidden = savedEdit.hidden === true;
       }
@@ -522,7 +521,7 @@
     cell.innerHTML = `
       <div class="osm-mountain-name-editor">
         <select class="osm-mountain-size-select" aria-label="크기">
-          ${["대형", "중형", "소형", "초소형"]
+          ${["대형", "중형", "소형"]
             .map((tag) => `<option value="${tag}" ${tag === (props.dreamCustomSizeTag || props.dreamSizeTag) ? "selected" : ""}>${tag}</option>`)
             .join("")}
         </select>
