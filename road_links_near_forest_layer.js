@@ -168,8 +168,6 @@
     }
   }
 
-  layer.addTo(map);
-  showPanel();
   if (layerControl && layerControl.addOverlay) {
     layerControl.addOverlay(layer, `차도링크-노드 연결 ${meta.count.toLocaleString("ko-KR")}건`);
   }

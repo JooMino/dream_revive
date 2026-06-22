@@ -1,4 +1,4 @@
-// Mountain labels sourced from OpenStreetMap Overpass natural=peak data.
+﻿// Mountain labels sourced from OpenStreetMap Overpass natural=peak data.
 (function () {
   "use strict";
 
@@ -201,7 +201,7 @@
   layer.addTo(map);
 
   if (layerControl && layerControl.addOverlay) {
-    layerControl.addOverlay(layer, "산 이름 마커");
+    layerControl.addOverlay(layer, "산이름 마커");
   }
 
   const panel = L.control({ position: "topleft" });
@@ -248,3 +248,4 @@
     layer,
   };
 })();
+

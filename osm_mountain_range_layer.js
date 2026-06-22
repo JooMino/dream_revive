@@ -112,7 +112,6 @@
     },
   });
 
-  layer.addTo(map);
   layer.eachLayer((featureLayer) => {
     if (featureLayer.bringToBack) {
       featureLayer.bringToBack();

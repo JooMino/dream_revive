@@ -79,8 +79,10 @@
 
   const renderer = L.canvas({ padding: 0.5 });
   const layer = L.layerGroup();
+  const nodeRenderLimit = 900;
+  let renderTimer = 0;
 
-  roadNodes.forEach((item) => {
+  function addRoadNode(item) {
     L.circleMarker([item.lat, item.lon], {
       renderer,
       radius: radiusForNode(item),
@@ -91,10 +93,28 @@
       opacity: 0.95,
       bubblingMouseEvents: false
     })
-      .bindTooltip(`${item.typeName} / 연결 ${item.clink} / 위험라벨 ${item.riskRank}위`, { sticky: true })
+      .bindTooltip(`${item.typeName} / ?? ${item.clink} / ???? ${item.riskRank}?`, { sticky: true })
       .bindPopup(popupHtml(item), { maxWidth: 340 })
       .addTo(layer);
-  });
+  }
+
+  function renderRoadNodes() {
+    layer.clearLayers();
+    if (!map.hasLayer(layer) || !map.getBounds) return;
+    const bounds = map.getBounds().pad(0.08);
+    let count = 0;
+    for (const item of roadNodes) {
+      if (!bounds.contains([item.lat, item.lon])) continue;
+      addRoadNode(item);
+      count += 1;
+      if (count >= nodeRenderLimit) break;
+    }
+  }
+
+  function scheduleRoadNodeRender() {
+    window.clearTimeout(renderTimer);
+    renderTimer = window.setTimeout(renderRoadNodes, 80);
+  }
 
   const panel = L.control({ position: "bottomleft" });
   panel.onAdd = function () {
@@ -123,17 +143,17 @@
     }
   }
 
-  layer.addTo(map);
-  showPanel();
   if (layerControl && layerControl.addOverlay) {
     layerControl.addOverlay(layer, `차도노드-산림위험 주변 ${meta.count.toLocaleString("ko-KR")}건`);
   }
   map.on("overlayadd", function (event) {
-    if (event.layer === layer) showPanel();
+    if (event.layer === layer) { showPanel(); scheduleRoadNodeRender(); }
   });
   map.on("overlayremove", function (event) {
-    if (event.layer === layer) hidePanel();
+    if (event.layer === layer) { hidePanel(); layer.clearLayers(); }
   });
+
+  map.on("moveend zoomend", scheduleRoadNodeRender);
 
   window.dreamRoadNodeLayer = { layer, roadNodes, meta };
 })();

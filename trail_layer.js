@@ -73,7 +73,6 @@
     });
   });
 
-  layer.addTo(map);
   if (layerControl && layerControl.addOverlay) {
     layerControl.addOverlay(layer, `등산로 (${trails.length.toLocaleString("ko-KR")}구간)`);
   }

@@ -1,4 +1,4 @@
-// Trail point and supplemental mountain labels generated from DATA001/DATA002 SHP.
+﻿// Trail point and supplemental mountain labels generated from DATA001/DATA002 SHP.
 (function () {
   "use strict";
 
@@ -83,22 +83,52 @@
   }
 
   const pointLayer = L.layerGroup();
-  points.forEach((point) => {
+  const pointRenderLimit = 700;
+  let pointRenderTimer = 0;
+
+  function addPointMarker(point) {
     const color = pointColor(point.type);
     L.circleMarker([point.lat, point.lon], {
-      radius: point.type === "정상" ? 7 : 5,
+      radius: point.type === "??" ? 7 : 5,
       color: "#FFFFFF",
       weight: 1.5,
       fill: true,
       fillColor: color,
       fillOpacity: 0.95,
     })
-      .bindTooltip(`${point.mountain || "등산로"}${point.type ? " · " + point.type : ""}`, { sticky: true })
+      .bindTooltip(`${point.mountain || "???"}${point.type ? " ? " + point.type : ""}`, { sticky: true })
       .bindPopup(popupHtml(point), { maxWidth: 320 })
       .addTo(pointLayer);
+  }
+
+  function renderTrailPoints() {
+    pointLayer.clearLayers();
+    if (!map.hasLayer(pointLayer) || !map.getBounds) return;
+    const bounds = map.getBounds().pad(0.08);
+    let count = 0;
+    for (const point of points) {
+      if (!bounds.contains([point.lat, point.lon])) continue;
+      addPointMarker(point);
+      count += 1;
+      if (count >= pointRenderLimit) break;
+    }
+  }
+
+  function scheduleTrailPointRender() {
+    window.clearTimeout(pointRenderTimer);
+    pointRenderTimer = window.setTimeout(renderTrailPoints, 80);
+  }
+
+  map.on("moveend zoomend", scheduleTrailPointRender);
+  map.on("overlayadd", (event) => {
+    if (event.layer === pointLayer) scheduleTrailPointRender();
+  });
+  map.on("overlayremove", (event) => {
+    if (event.layer === pointLayer) pointLayer.clearLayers();
   });
 
-  const mountainLayer = L.layerGroup();
+  const baseMountainLayer = window.dreamMountainLayer && window.dreamMountainLayer.layer;
+  const mountainLayer = baseMountainLayer || L.layerGroup();
   extraMountains.forEach((mountain) => {
     L.marker([mountain.lat, mountain.lon], {
       icon: L.divIcon({
@@ -116,13 +146,13 @@
       .addTo(mountainLayer);
   });
 
-  pointLayer.addTo(map);
-  mountainLayer.addTo(map);
 
   if (layerControl && layerControl.addOverlay) {
     layerControl.addOverlay(pointLayer, `등산로 지점 (${points.length.toLocaleString("ko-KR")}개)`);
-    if (extraMountains.length) {
-      layerControl.addOverlay(mountainLayer, `추가 산 이름 (${extraMountains.length.toLocaleString("ko-KR")}개)`);
+    if (!baseMountainLayer && extraMountains.length) {
+      layerControl.addOverlay(mountainLayer, "산이름 마커");
     }
   }
 })();
+
+
