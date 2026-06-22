@@ -27,7 +27,8 @@ MIN_LAT, MAX_LAT = 37.13962885, 37.23682115
 MIN_LON, MAX_LON = 126.79421280, 127.00776720
 
 OUT_DIR = Path(__file__).resolve().parent
-OUT_JS = OUT_DIR / "farmmap_farmland_data.js"
+JS_DIR = OUT_DIR / "js"
+OUT_JS = JS_DIR / "farmmap_farmland_data.js"
 OUT_GEOJSON = OUT_DIR / "farmmap_farmland_data.geojson"
 OUT_CSV = OUT_DIR / "farmmap_farmland_list.csv"
 
@@ -199,6 +200,7 @@ def main() -> None:
 
     collection = {"type": "FeatureCollection", "features": features}
     OUT_GEOJSON.write_text(json.dumps(collection, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    OUT_JS.parent.mkdir(parents=True, exist_ok=True)
     OUT_JS.write_text(
         "window.dreamFarmmapFarmlandData = "
         + json.dumps(collection, ensure_ascii=False, separators=(",", ":"))

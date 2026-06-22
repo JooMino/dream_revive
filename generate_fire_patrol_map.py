@@ -14,13 +14,14 @@ from folium.plugins import MarkerCluster, MiniMap
 
 
 ROOT = Path(__file__).resolve().parent
+JS_DIR = ROOT / "js"
 FOREST_SHP = ROOT / "수림분포" / "41590.shp"
 SOIL_SHP = ROOT / "산림입지토양도" / "41590.shp"
 FACTORY_XLSX = ROOT / "화성시_제조업체_화재위험_우선순위별_목록.xlsx"
-FACTORY_PRIORITY_JS = ROOT / "factory_priority_layer.js"
-MOUNTAIN_LAYER_JS = ROOT / "mountain_layer.js"
-TRAIL_LAYER_JS = ROOT / "trail_layer.js"
-TRAIL_POINT_LAYER_JS = ROOT / "trail_point_layer.js"
+FACTORY_PRIORITY_JS = JS_DIR / "factory_priority_layer.js"
+MOUNTAIN_LAYER_JS = JS_DIR / "mountain_layer.js"
+TRAIL_LAYER_JS = JS_DIR / "trail_layer.js"
+TRAIL_POINT_LAYER_JS = JS_DIR / "trail_point_layer.js"
 OUTPUT_HTML = ROOT / "hwaseong_fire_patrol_map.html"
 PROJECTED_CRS = "EPSG:5179"
 WEB_CRS = "EPSG:4326"
@@ -476,7 +477,16 @@ def factory_priority_script(points: list[dict[str, object]]) -> str:
 def write_factory_priority_script(
     points: list[dict[str, object]], output: Path = FACTORY_PRIORITY_JS
 ) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(factory_priority_script(points), encoding="utf-8")
+
+
+def script_src_for_html(script_path: Path, html_path: Path) -> str:
+    try:
+        src = script_path.resolve().relative_to(html_path.resolve().parent)
+    except ValueError:
+        src = script_path
+    return src.as_posix()
 
 
 def install_factory_priority_loader(
@@ -797,16 +807,24 @@ def main() -> None:
         factory_points = load_factory_priority_points(args.factory_xlsx)
         if factory_points:
             write_factory_priority_script(factory_points, args.factory_js)
-            install_factory_priority_loader(args.output, args.factory_js.name)
+            install_factory_priority_loader(
+                args.output, script_src_for_html(args.factory_js, args.output)
+            )
 
     if not args.skip_mountain_layer and args.mountain_js.exists():
-        install_mountain_layer_loader(args.output, args.mountain_js.name)
+        install_mountain_layer_loader(
+            args.output, script_src_for_html(args.mountain_js, args.output)
+        )
 
     if not args.skip_trail_layer and args.trail_js.exists():
-        install_trail_layer_loader(args.output, args.trail_js.name)
+        install_trail_layer_loader(
+            args.output, script_src_for_html(args.trail_js, args.output)
+        )
 
     if not args.skip_trail_point_layer and args.trail_point_js.exists():
-        install_trail_point_layer_loader(args.output, args.trail_point_js.name)
+        install_trail_point_layer_loader(
+            args.output, script_src_for_html(args.trail_point_js, args.output)
+        )
 
     print(f"Created: {args.output}")
     print(f"Displayed forest polygons: {min(args.max_polygons, len(forest)):,}")
