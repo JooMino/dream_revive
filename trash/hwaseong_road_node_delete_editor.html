@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>화성시 녹지근접 차도노드 삭제 편집기</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+  <style>
+    html, body, #map {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+    }
+    .editor-toolbar {
+      position: absolute;
+      z-index: 1000;
+      top: 12px;
+      left: 12px;
+      display: grid;
+      gap: 8px;
+      width: min(360px, calc(100vw - 24px));
+      padding: 10px;
+      border: 1px solid rgba(20, 32, 42, .18);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 8px 24px rgba(18, 27, 38, .18);
+      color: #1f2933;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .editor-toolbar h1 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+    .editor-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .editor-stat {
+      padding: 6px 7px;
+      border: 1px solid rgba(49, 65, 82, .13);
+      border-radius: 6px;
+      background: #f8fafc;
+    }
+    .editor-stat strong {
+      display: block;
+      font-size: 13px;
+    }
+    .editor-actions {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .editor-actions button,
+    .editor-actions label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 0 8px;
+      border: 1px solid rgba(31, 41, 55, .2);
+      border-radius: 6px;
+      background: #ffffff;
+      color: #1f2937;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .editor-actions button:hover,
+    .editor-actions label:hover { background: #f1f5f9; }
+    .editor-actions .primary {
+      border-color: rgba(37, 99, 235, .45);
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .editor-actions .danger {
+      border-color: rgba(220, 38, 38, .35);
+      color: #b91c1c;
+    }
+    .editor-actions .active {
+      border-color: rgba(22, 163, 74, .48);
+      background: #16a34a;
+      color: #ffffff;
+    }
+    .editor-actions input { display: none; }
+    .editor-status {
+      min-height: 17px;
+      color: #536171;
+    }
+    .editor-toggles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .editor-toggles button {
+      min-height: 30px;
+      border: 1px solid rgba(31, 41, 55, .2);
+      border-radius: 6px;
+      background: #ffffff;
+      color: #1f2937;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .editor-toggles button.active {
+      border-color: rgba(14, 116, 144, .5);
+      background: #0e7490;
+      color: #ffffff;
+    }
+    .mountain-list-panel {
+      display: none;
+      max-height: min(34vh, 260px);
+      overflow: auto;
+      border: 1px solid rgba(49, 65, 82, .13);
+      border-radius: 6px;
+      background: #f8fafc;
+    }
+    .mountain-list-panel.active { display: block; }
+    .mountain-list-panel button {
+      display: block;
+      width: 100%;
+      padding: 6px 8px;
+      border: 0;
+      border-bottom: 1px solid rgba(49, 65, 82, .1);
+      background: transparent;
+      color: #1f2937;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .mountain-list-panel button:hover { background: #e8f1f4; }
+    .mountain-label-icon { background: transparent; border: 0; }
+    .mountain-label {
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+      padding: 4px 8px;
+      border: 2px solid rgba(37, 99, 50, .38);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: 0 2px 9px rgba(15, 23, 42, .24);
+      color: #172317;
+      font: 900 16px/1.1 "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      white-space: nowrap;
+      text-shadow: 0 1px 0 #fff;
+    }
+    .mountain-label small {
+      color: #4f624f;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .node-editor-tooltip {
+      padding: 4px 6px;
+      border-radius: 5px;
+      background: rgba(15, 23, 42, .86);
+      color: #fff;
+      font-size: 12px;
+      pointer-events: none;
+    }
+    @media (max-width: 560px) {
+      .editor-toolbar {
+        top: 8px;
+        left: 8px;
+        width: calc(100vw - 16px);
+      }
+      .editor-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <section class="editor-toolbar" aria-label="차도노드 삭제 편집 도구">
+    <h1>화성시 녹지근접 차도노드</h1>
+    <div class="editor-stats">
+      <div class="editor-stat"><span>전체</span><strong id="total-count">-</strong></div>
+      <div class="editor-stat"><span>표시</span><strong id="active-count">-</strong></div>
+      <div class="editor-stat"><span>삭제</span><strong id="deleted-count">0</strong></div>
+    </div>
+    <div class="editor-actions">
+      <button type="button" class="primary" id="export-btn">내보내기</button>
+      <button type="button" id="area-btn">영역삭제</button>
+      <button type="button" id="undo-btn">되돌리기</button>
+      <button type="button" class="danger" id="reset-btn">초기화</button>
+      <label for="import-input">불러오기<input id="import-input" type="file" accept="application/json,.json" /></label>
+    </div>
+    <div class="editor-toggles">
+      <button type="button" id="mountain-toggle" aria-pressed="false">산 목록/마커</button>
+      <button type="button" id="link-toggle" aria-pressed="false">차도링크</button>
+    </div>
+    <div class="mountain-list-panel" id="mountain-list-panel" aria-label="화성시 산 목록"></div>
+    <div class="editor-status" id="status">노드 데이터를 불러오는 중</div>
+  </section>
+  <script src="hwaseong_green_road_nodes_data.js?v=20260622-greenroads" charset="utf-8"></script>
+  <script src="hwaseong_road_node_delete_editor.js?v=20260622-node-editor" charset="utf-8"></script>
+</body>
+</html>
