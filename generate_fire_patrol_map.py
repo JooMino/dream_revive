@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 import math
+import re
 from pathlib import Path
 
 import folium
@@ -14,6 +16,8 @@ from folium.plugins import MarkerCluster, MiniMap
 ROOT = Path(__file__).resolve().parent
 FOREST_SHP = ROOT / "수림분포" / "41590.shp"
 SOIL_SHP = ROOT / "산림입지토양도" / "41590.shp"
+FACTORY_XLSX = ROOT / "화성시_제조업체_화재위험_우선순위별_목록.xlsx"
+FACTORY_PRIORITY_JS = ROOT / "factory_priority_layer.js"
 OUTPUT_HTML = ROOT / "hwaseong_fire_patrol_map.html"
 PROJECTED_CRS = "EPSG:5179"
 WEB_CRS = "EPSG:4326"
@@ -67,6 +71,25 @@ def number_or_zero(value: object) -> float:
         return float(value)
     except (TypeError, ValueError):
         return 0.0
+
+
+def number_or_none(value: object) -> float | None:
+    try:
+        if pd.isna(value):
+            return None
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+
+    if not math.isfinite(number):
+        return None
+    return number
+
+
+def text_or_empty(value: object) -> str:
+    if value is None or pd.isna(value):
+        return ""
+    return str(value).strip()
 
 
 def forest_risk(row: pd.Series) -> int:
@@ -212,6 +235,316 @@ def nearest_neighbor_route(points: gpd.GeoDataFrame) -> list[int]:
     return route
 
 
+def priority_number(value: object, fallback: str) -> int | None:
+    text = text_or_empty(value) or fallback
+    match = re.search(r"([123])", text)
+    if not match:
+        return None
+    return int(match.group(1))
+
+
+def load_factory_priority_points(path: Path) -> list[dict[str, object]]:
+    if not path.exists():
+        return []
+
+    workbook = pd.ExcelFile(path)
+    points: list[dict[str, object]] = []
+
+    for sheet_name in workbook.sheet_names:
+        if "순위" not in sheet_name:
+            continue
+
+        frame = pd.read_excel(path, sheet_name=sheet_name, header=2).dropna(how="all")
+        if "위도" not in frame.columns or "경도" not in frame.columns:
+            continue
+
+        for _, row in frame.iterrows():
+            lat = number_or_none(row.get("위도"))
+            lon = number_or_none(row.get("경도"))
+            priority = priority_number(row.get("적용순위"), sheet_name)
+
+            if lat is None or lon is None or priority is None:
+                continue
+
+            road_address = text_or_empty(row.get("도로명주소"))
+            lot_address = text_or_empty(row.get("지번주소"))
+
+            points.append(
+                {
+                    "priority": priority,
+                    "lat": round(lat, 7),
+                    "lon": round(lon, 7),
+                    "company": text_or_empty(row.get("회사명")),
+                    "category": text_or_empty(row.get("적용대분류")),
+                    "reason": text_or_empty(row.get("우선검토사유")),
+                    "industry": text_or_empty(row.get("업종명")),
+                    "product": text_or_empty(row.get("생산품정보")),
+                    "phone": text_or_empty(row.get("전화번호")),
+                    "address": road_address or lot_address,
+                    "lotAddress": lot_address,
+                    "size": text_or_empty(row.get("공장규모")),
+                }
+            )
+
+    return points
+
+
+def factory_priority_script(points: list[dict[str, object]]) -> str:
+    data = json.dumps(points, ensure_ascii=False, separators=(",", ":"))
+    return f"""// Auto-generated from {FACTORY_XLSX.name}. Do not edit by hand.
+(function () {{
+  "use strict";
+
+  const config = window.dreamFactoryPriorityConfig || {{}};
+  const map = config.map;
+  const layerControl = config.layerControl;
+  const oldFactoryLayer = config.oldFactoryLayer || null;
+  const factories = {data};
+
+  if (!map || !window.L || !factories.length) {{
+    return;
+  }}
+
+  const styles = {{
+    1: {{ label: "공장 1순위 (빨강)", color: "#d73027", text: "#ffffff" }},
+    2: {{ label: "공장 2순위 (주황)", color: "#f46d43", text: "#111111" }},
+    3: {{ label: "공장 3순위 (노랑)", color: "#fdd835", text: "#111111" }}
+  }};
+
+  const styleEl = document.createElement("style");
+  styleEl.textContent = `
+    .factory-priority-icon {{ background: transparent; border: 0; }}
+    .factory-priority-dot {{
+      display: block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 5px rgba(0,0,0,.45);
+    }}
+    .factory-priority-cluster {{
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      font: 700 12px/1 "Segoe UI", Arial, sans-serif;
+    }}
+    .factory-priority-popup {{
+      border-collapse: collapse;
+      font-size: 12px;
+      min-width: 230px;
+    }}
+    .factory-priority-popup th {{
+      padding: 3px 8px 3px 0;
+      white-space: nowrap;
+      text-align: left;
+      color: #555;
+    }}
+    .factory-priority-popup td {{
+      padding: 3px 0;
+    }}
+    .factory-layer-swatch {{
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 5px;
+      border: 1px solid rgba(0,0,0,.25);
+      border-radius: 50%;
+      vertical-align: -1px;
+    }}
+  `;
+  document.head.appendChild(styleEl);
+
+  function escapeHtml(value) {{
+    return String(value || "").replace(/[&<>"']/g, function (char) {{
+      return {{
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }}[char];
+    }});
+  }}
+
+  function markerIcon(priority) {{
+    const style = styles[priority] || styles[3];
+    return L.divIcon({{
+      className: "factory-priority-icon",
+      html: `<span class="factory-priority-dot" style="background:${{style.color}}"></span>`,
+      iconSize: [18, 18],
+      iconAnchor: [9, 9]
+    }});
+  }}
+
+  function clusterIcon(priority) {{
+    const style = styles[priority] || styles[3];
+    return function (cluster) {{
+      const count = cluster.getChildCount().toLocaleString("ko-KR");
+      return L.divIcon({{
+        className: "factory-priority-icon",
+        html: `<div class="factory-priority-cluster" style="background:${{style.color}};color:${{style.text}}">${{count}}</div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+      }});
+    }};
+  }}
+
+  function popupHtml(item) {{
+    const rows = [
+      ["우선순위", `${{item.priority}}순위`],
+      ["회사명", item.company],
+      ["분류", item.category],
+      ["검토사유", item.reason],
+      ["업종", item.industry],
+      ["생산품", item.product],
+      ["공장규모", item.size],
+      ["주소", item.address],
+      ["전화번호", item.phone]
+    ].filter(([, value]) => value);
+
+    return `<table class="factory-priority-popup">${{rows.map(([key, value]) =>
+      `<tr><th>${{escapeHtml(key)}}</th><td>${{escapeHtml(value)}}</td></tr>`
+    ).join("")}}</table>`;
+  }}
+
+  function layerLabel(priority, count) {{
+    const style = styles[priority] || styles[3];
+    return `<span><span class="factory-layer-swatch" style="background:${{style.color}}"></span>${{style.label}} ${{count.toLocaleString("ko-KR")}}건</span>`;
+  }}
+
+  if (oldFactoryLayer) {{
+    try {{
+      if (map.hasLayer(oldFactoryLayer)) {{
+        map.removeLayer(oldFactoryLayer);
+      }}
+    }} catch (error) {{}}
+
+    try {{
+      if (layerControl && layerControl.removeLayer) {{
+        layerControl.removeLayer(oldFactoryLayer);
+      }}
+    }} catch (error) {{}}
+  }}
+
+  const groups = {{}};
+  [1, 2, 3].forEach(function (priority) {{
+    groups[priority] = L.markerClusterGroup({{
+      chunkedLoading: true,
+      maxClusterRadius: 44,
+      iconCreateFunction: clusterIcon(priority)
+    }});
+  }});
+
+  const counts = {{ 1: 0, 2: 0, 3: 0 }};
+
+  factories.forEach(function (item) {{
+    const priority = styles[item.priority] ? item.priority : 3;
+    const marker = L.marker([item.lat, item.lon], {{
+      icon: markerIcon(priority),
+      title: item.company || `${{priority}}순위 공장`
+    }});
+
+    marker.bindTooltip(escapeHtml(item.company || `${{priority}}순위 공장`), {{
+      sticky: true
+    }});
+    marker.bindPopup(popupHtml(item), {{ maxWidth: 380 }});
+    groups[priority].addLayer(marker);
+    counts[priority] += 1;
+  }});
+
+  [1, 2, 3].forEach(function (priority) {{
+    if (!counts[priority]) {{
+      return;
+    }}
+
+    groups[priority].addTo(map);
+    if (layerControl && layerControl.addOverlay) {{
+      layerControl.addOverlay(groups[priority], layerLabel(priority, counts[priority]));
+    }}
+  }});
+}})();
+"""
+
+
+def write_factory_priority_script(
+    points: list[dict[str, object]], output: Path = FACTORY_PRIORITY_JS
+) -> None:
+    output.write_text(factory_priority_script(points), encoding="utf-8")
+
+
+def install_factory_priority_loader(
+    html_path: Path,
+    script_name: str = FACTORY_PRIORITY_JS.name,
+    remove_legacy_factory_layer: bool = True,
+) -> None:
+    html = html_path.read_text(encoding="utf-8")
+
+    html = re.sub(
+        r"\n\s*// DREAM_FACTORY_PRIORITY_LOADER:start.*?"
+        r"// DREAM_FACTORY_PRIORITY_LOADER:end\s*\n",
+        "\n",
+        html,
+        flags=re.S,
+    )
+    html = re.sub(
+        r"\n\s*<!-- DREAM_FACTORY_PRIORITY_SCRIPT:start -->.*?"
+        r"<!-- DREAM_FACTORY_PRIORITY_SCRIPT:end -->\s*\n",
+        "\n",
+        html,
+        flags=re.S,
+    )
+
+    map_match = re.search(r"var (map_[0-9a-f]+) = L\.map", html)
+    layer_match = re.search(r"(?:let|var) (layer_control_[0-9a-f]+) = L\.control\.layers", html)
+
+    if not map_match or not layer_match:
+        raise RuntimeError("Could not find Folium map or layer control in generated HTML.")
+
+    map_var = map_match.group(1)
+    layer_var = layer_match.group(1)
+    old_factory_var = "null"
+
+    cluster_vars = re.findall(r"var (marker_cluster_[0-9a-f]+) = L\.markerClusterGroup", html)
+    if remove_legacy_factory_layer and len(cluster_vars) >= 2:
+        old_factory_var = cluster_vars[-1]
+        start = html.find(f"var {old_factory_var} = L.markerClusterGroup")
+        add_match = re.search(
+            rf"\n\s*{re.escape(old_factory_var)}\.addTo\({re.escape(map_var)}\);\s*",
+            html[start:],
+        )
+        if start != -1 and add_match:
+            end = start + add_match.end()
+            html = html[:start] + "\n" + html[end:]
+            html = re.sub(
+                rf"\n\s*\"[^\"]+\"\s*:\s*{re.escape(old_factory_var)},\s*",
+                "\n",
+                html,
+            )
+            old_factory_var = "null"
+
+    config = f"""
+            // DREAM_FACTORY_PRIORITY_LOADER:start
+            window.dreamFactoryPriorityConfig = {{
+                map: {map_var},
+                layerControl: {layer_var},
+                oldFactoryLayer: {old_factory_var}
+            }};
+            // DREAM_FACTORY_PRIORITY_LOADER:end
+"""
+    script = f"""
+<!-- DREAM_FACTORY_PRIORITY_SCRIPT:start -->
+<script src="{script_name}"></script>
+<!-- DREAM_FACTORY_PRIORITY_SCRIPT:end -->
+"""
+
+    html = html.replace("\n</script>\n</html>", config + "\n</script>" + script + "\n</html>")
+    html_path.write_text(html, encoding="utf-8")
+
+
 def build_map(
     forest: gpd.GeoDataFrame,
     patrol_points: gpd.GeoDataFrame,
@@ -347,6 +680,7 @@ def build_map(
       <hr style="margin:6px 0;">
       빨간 마커: 순찰 우선 지점<br>
       파란 선: 추천 순찰 노선<br>
+      공장 우선순위: 빨강 1순위 · 주황 2순위 · 노랑 3순위<br>
       큰 글씨: 고위험 산림 구역
     </div>
     """
@@ -364,6 +698,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-polygons", type=int, default=1500)
     parser.add_argument("--patrol-points", type=int, default=15)
     parser.add_argument("--area-labels", type=int, default=35)
+    parser.add_argument("--factory-xlsx", type=Path, default=FACTORY_XLSX)
+    parser.add_argument("--factory-js", type=Path, default=FACTORY_PRIORITY_JS)
+    parser.add_argument("--skip-factory-layer", action="store_true")
     return parser.parse_args()
 
 
@@ -381,10 +718,19 @@ def main() -> None:
     patrol_points = choose_patrol_points(forest, args.patrol_points)
     build_map(forest, patrol_points, args.output, args.max_polygons, args.area_labels)
 
+    factory_points = []
+    if not args.skip_factory_layer:
+        factory_points = load_factory_priority_points(args.factory_xlsx)
+        if factory_points:
+            write_factory_priority_script(factory_points, args.factory_js)
+            install_factory_priority_loader(args.output, args.factory_js.name)
+
     print(f"Created: {args.output}")
     print(f"Displayed forest polygons: {min(args.max_polygons, len(forest)):,}")
     print(f"Patrol priority points: {len(patrol_points):,}")
     print(f"Area labels: {args.area_labels:,}")
+    if factory_points:
+        print(f"Factory priority points: {len(factory_points):,}")
 
 
 if __name__ == "__main__":
