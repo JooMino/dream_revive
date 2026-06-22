@@ -23,17 +23,17 @@
   ];
 
   const adjustedCorners = [
-    { key: "leftTop", label: "보정 좌측 상단", lat: 37.22792787, lon: 126.80741372 },
-    { key: "rightTop", label: "보정 우측 상단", lat: 37.23434787, lon: 126.99482872 },
-    { key: "rightBottom", label: "보정 우측 하단", lat: 37.14388213, lon: 126.99971128 },
-    { key: "leftBottom", label: "보정 좌측 하단", lat: 37.13746213, lon: 126.81229628 },
+    { key: "leftTop", label: "보정 좌측 상단", lat: 37.23682115, lon: 126.7942128 },
+    { key: "rightTop", label: "보정 우측 상단", lat: 37.23682115, lon: 127.0077672 },
+    { key: "rightBottom", label: "보정 우측 하단", lat: 37.13962885, lon: 127.0077672 },
+    { key: "leftBottom", label: "보정 좌측 하단", lat: 37.13962885, lon: 126.7942128 },
   ];
 
-  const center = { lat: 37.185905, lon: 126.9035625 };
+  const center = { lat: 37.188225, lon: 126.90099 };
   const dimensions = {
-    widthMeters: 16617.8,
-    heightMeters: 10068.6,
-    rotationDegrees: 2.4621,
+    widthMeters: 18917.5,
+    heightMeters: 10807.3,
+    rotationDegrees: 0,
   };
 
   const styleEl = document.createElement("style");
