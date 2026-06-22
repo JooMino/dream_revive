@@ -46,6 +46,8 @@
   const markerById = new Map();
   const layer = L.layerGroup();
   const highlight = L.layerGroup().addTo(map);
+  const riskLegend = document.getElementById("wildfire-risk-legend");
+  let mountainPanelContainer = null;
 
   const styleEl = document.createElement("style");
   styleEl.textContent = `
@@ -71,6 +73,7 @@
       font-weight: 800;
     }
     .mountain-panel {
+      display: none;
       width: 176px;
       max-height: min(46vh, 360px);
       overflow: hidden;
@@ -112,6 +115,10 @@
     }
   `;
   document.head.appendChild(styleEl);
+
+  if (riskLegend) {
+    riskLegend.style.display = "none";
+  }
 
   function escapeHtml(value) {
     return String(value || "").replace(/[&<>"']/g, function (char) {
@@ -166,6 +173,16 @@
       .forEach((button) => button.classList.toggle("is-active", button.dataset.mountainId === id));
   }
 
+  function setInfoPanelVisible(panel, visible) {
+    if (panel === "risk" && riskLegend) {
+      riskLegend.style.display = visible ? "" : "none";
+    }
+
+    if (panel === "mountains" && mountainPanelContainer) {
+      mountainPanelContainer.style.display = visible ? "block" : "none";
+    }
+  }
+
   mountains.forEach((mountain) => {
     const marker = L.marker([mountain.lat, mountain.lon], {
       icon: L.divIcon({
@@ -190,6 +207,7 @@
   const panel = L.control({ position: "topleft" });
   panel.onAdd = function () {
     const container = L.DomUtil.create("div", "mountain-panel");
+    mountainPanelContainer = container;
     container.innerHTML = `
       <strong>산 모음</strong>
       <div class="mountain-panel-list">
@@ -218,12 +236,15 @@
     const message = event.data || {};
     if (message.type === "dream:fly-to-mountain") {
       focusMountain(message.id);
+    } else if (message.type === "dream:set-info-panel") {
+      setInfoPanelVisible(message.panel, !!message.visible);
     }
   });
 
   window.dreamMountainLayer = {
     mountains,
     focusMountain,
+    setInfoPanelVisible,
     layer,
   };
 })();

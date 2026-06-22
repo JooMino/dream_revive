@@ -625,6 +625,7 @@ def build_map(
     label_points = label_source.copy()
     label_points["geometry"] = label_points.geometry.representative_point()
     label_points_wgs = label_points.to_crs(WEB_CRS).reset_index(drop=True)
+    label_layer = folium.FeatureGroup(name="고위험 산림 라벨", show=True).add_to(fmap)
 
     for idx, row in label_points_wgs.iterrows():
         label = f"{idx + 1}위<br>위험도 {row['risk_score']}"
@@ -653,7 +654,7 @@ def build_map(
                 ">{label}</div>
                 """
             ),
-        ).add_to(fmap)
+        ).add_to(label_layer)
 
     points_wgs = patrol_points.to_crs(WEB_CRS).reset_index(drop=True)
     marker_layer = MarkerCluster(name="순찰 우선 지점").add_to(fmap)
@@ -690,7 +691,7 @@ def build_map(
             ).add_to(fmap)
 
     legend = """
-    <div style="position: fixed; bottom: 28px; left: 28px; z-index: 9999;
+    <div id="wildfire-risk-legend" style="display: none; position: fixed; bottom: 28px; left: 28px; z-index: 9999;
                 background: white; padding: 12px 14px; border: 1px solid #999;
                 border-radius: 6px; font-size: 13px; line-height: 1.5;">
       <b>산불 위험도</b><br>
@@ -704,7 +705,7 @@ def build_map(
       파란 선: 추천 순찰 노선<br>
       공장 우선순위: 빨강 1순위 · 주황 2순위 · 노랑 3순위<br>
       산 이름 마커: 큰 텍스트 라벨<br>
-      큰 글씨: 고위험 산림 구역
+      고위험 산림 라벨: 레이어에서 켜기/끄기
     </div>
     """
     fmap.get_root().html.add_child(folium.Element(legend))

@@ -61,11 +61,56 @@
       min-width: 0;
     }
 
+    .brand-title {
+      position: relative;
+      min-width: 0;
+    }
+
     .brand h1 {
       margin: 0;
       font-size: 20px;
       font-weight: 800;
       white-space: nowrap;
+      cursor: help;
+    }
+
+    .title-tooltip {
+      position: absolute;
+      top: calc(100% + 11px);
+      left: 0;
+      z-index: 10;
+      width: max-content;
+      max-width: min(420px, calc(100vw - 40px));
+      padding: 10px 12px;
+      border: 1px solid rgba(20, 32, 22, 0.18);
+      border-radius: 7px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 8px 24px rgba(24, 36, 26, 0.14);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 140ms ease, transform 140ms ease;
+      visibility: hidden;
+    }
+
+    .title-tooltip strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .title-tooltip span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .brand-title:hover .title-tooltip,
+    .brand-title:focus-within .title-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
     }
 
     .brand span {
@@ -223,17 +268,7 @@
     }
 
     .map-title {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      z-index: 2;
-      max-width: min(520px, calc(100% - 28px));
-      padding: 10px 12px;
-      border: 1px solid rgba(20, 32, 22, 0.18);
-      border-radius: 7px;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 8px 24px rgba(24, 36, 26, 0.14);
-      pointer-events: none;
+      display: none;
     }
 
     .map-title strong {
@@ -302,6 +337,61 @@
 
     .data-list b {
       color: var(--ink);
+    }
+
+    .sidebar-actions {
+      display: grid;
+      gap: 8px;
+    }
+
+    .sidebar-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 36px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      background: #f8faf6;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .sidebar-toggle::after {
+      content: "+";
+      color: var(--accent);
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .sidebar-toggle[aria-expanded="true"] {
+      border-color: var(--accent);
+      background: #e9f2ea;
+    }
+
+    .sidebar-toggle[aria-expanded="true"]::after {
+      content: "-";
+    }
+
+    .sidebar-toggle:hover,
+    .sidebar-toggle:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .sidebar-reveal {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fbfcfa;
+    }
+
+    .sidebar-reveal[hidden] {
+      display: none;
     }
 
     .mountain-list {
@@ -396,7 +486,7 @@
       }
 
       .right {
-        display: flex;
+        display: none;
       }
     }
   </style>
@@ -405,7 +495,13 @@
   <main class="shell">
     <header class="topbar">
       <div class="brand">
-        <h1>화성시 산불 순찰 최적화 지도</h1>
+        <div class="brand-title">
+          <h1 tabindex="0">화성시 산불 순찰 최적화 지도</h1>
+          <div class="title-tooltip">
+            <strong>화성시 산림 위험도 및 순찰 노선</strong>
+            <span>지도 영역은 화성시 산림 데이터 범위로 제한됨</span>
+          </div>
+        </div>
         <span>임상도 · 산림입지토양도 · OpenStreetMap</span>
       </div>
       <nav class="actions" aria-label="지도 작업">
@@ -439,14 +535,51 @@
         </section>
 
         <section class="section">
-          <h2>위험도</h2>
-          <ul class="legend">
-            <li><span class="legend-label"><span class="swatch" style="background:#b2182b"></span>매우 높음</span><span class="weight">9+</span></li>
-            <li><span class="legend-label"><span class="swatch" style="background:#ef8a62"></span>높음</span><span class="weight">7-8</span></li>
-            <li><span class="legend-label"><span class="swatch" style="background:#fddbc7"></span>보통</span><span class="weight">5-6</span></li>
-            <li><span class="legend-label"><span class="swatch" style="background:#d1e5f0"></span>낮음</span><span class="weight">3-4</span></li>
-            <li><span class="legend-label"><span class="swatch" style="background:#67a9cf"></span>매우 낮음</span><span class="weight">1-2</span></li>
-          </ul>
+          <h2>지도 표시</h2>
+          <div class="sidebar-actions">
+            <button class="sidebar-toggle" type="button" data-sidebar-panel="risk" aria-expanded="false">산불 위험도</button>
+            <button class="sidebar-toggle" type="button" data-sidebar-panel="mountains" aria-expanded="false">산 모음</button>
+          </div>
+
+          <div class="sidebar-reveal" data-sidebar-content="risk" hidden>
+            <ul class="legend">
+              <li><span class="legend-label"><span class="swatch" style="background:#b2182b"></span>매우 높음</span><span class="weight">9+</span></li>
+              <li><span class="legend-label"><span class="swatch" style="background:#ef8a62"></span>높음</span><span class="weight">7-8</span></li>
+              <li><span class="legend-label"><span class="swatch" style="background:#fddbc7"></span>보통</span><span class="weight">5-6</span></li>
+              <li><span class="legend-label"><span class="swatch" style="background:#d1e5f0"></span>낮음</span><span class="weight">3-4</span></li>
+              <li><span class="legend-label"><span class="swatch" style="background:#67a9cf"></span>매우 낮음</span><span class="weight">1-2</span></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-reveal" data-sidebar-content="mountains" hidden>
+            <ul class="mountain-list">
+              <li><button class="mountain-button" type="button" data-mountain-id="mubongsan">무봉산 <span>351.8m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="geondalsan">건달산 <span>336m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="taehaengsan">태행산 <span>295m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="sambongsan">삼봉산 <span>270.5m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="seobongsan">서봉산 <span>250.3m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="chilbosan">칠보산 <span>239m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="taebongsan">태봉산 <span>223.8m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="myeongbongsan">명봉산 <span>170.8m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="bonghwasan">봉화산 <span>168.6m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="cheolmasan">철마산 <span>168.2m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="seongtaesan">성태산 <span>166m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="gubongsan">구봉산 <span>158.1m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="cheongmyeongsan">청명산 <span>157.1m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="choroksan">초록산 <span>150m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="cheondeungsan">천등산 <span>146m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="gochobong">고초봉 <span>143.9m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="haewoonsan">해운산 <span>143m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="gyemyeongsan">계명산 <span>140m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="yeochisan">여치산 <span>130.7m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="haemangsan">해망산 <span>125.8m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="maebongsan">매봉산 <span>108.6m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="tapjaesan">탑재산 <span>67m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="hambaksan">함박산 <span>56.6m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="obongsan">오봉산 <span>68.5m</span></button></li>
+              <li><button class="mountain-button" type="button" data-mountain-id="samjeongdaesan">삼정대산 <span>73.2m</span></button></li>
+            </ul>
+          </div>
         </section>
 
         <section class="section">
@@ -487,41 +620,46 @@
           </ul>
         </section>
 
-        <section class="section">
-          <h2>산 모음</h2>
-          <ul class="mountain-list">
-            <li><button class="mountain-button" type="button" data-mountain-id="mubongsan">무봉산 <span>351.8m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="geondalsan">건달산 <span>336m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="taehaengsan">태행산 <span>295m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="sambongsan">삼봉산 <span>270.5m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="seobongsan">서봉산 <span>250.3m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="chilbosan">칠보산 <span>239m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="taebongsan">태봉산 <span>223.8m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="myeongbongsan">명봉산 <span>170.8m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="bonghwasan">봉화산 <span>168.6m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="cheolmasan">철마산 <span>168.2m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="seongtaesan">성태산 <span>166m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="gubongsan">구봉산 <span>158.1m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="cheongmyeongsan">청명산 <span>157.1m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="choroksan">초록산 <span>150m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="cheondeungsan">천등산 <span>146m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="gochobong">고초봉 <span>143.9m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="haewoonsan">해운산 <span>143m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="gyemyeongsan">계명산 <span>140m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="yeochisan">여치산 <span>130.7m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="haemangsan">해망산 <span>125.8m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="maebongsan">매봉산 <span>108.6m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="tapjaesan">탑재산 <span>67m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="hambaksan">함박산 <span>56.6m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="obongsan">오봉산 <span>68.5m</span></button></li>
-            <li><button class="mountain-button" type="button" data-mountain-id="samjeongdaesan">삼정대산 <span>73.2m</span></button></li>
-          </ul>
-        </section>
       </aside>
     </section>
   </main>
   <script>
     const mapFrame = document.querySelector(".map-frame");
+    const sidebarToggles = document.querySelectorAll("[data-sidebar-panel]");
+
+    function postMapPanelState(panel, visible) {
+      mapFrame.contentWindow.postMessage(
+        { type: "dream:set-info-panel", panel, visible },
+        "*"
+      );
+    }
+
+    function syncMapPanels() {
+      sidebarToggles.forEach((button) => {
+        postMapPanelState(
+          button.dataset.sidebarPanel,
+          button.getAttribute("aria-expanded") === "true"
+        );
+      });
+    }
+
+    sidebarToggles.forEach((button) => {
+      button.addEventListener("click", () => {
+        const panel = button.dataset.sidebarPanel;
+        const content = document.querySelector(`[data-sidebar-content="${panel}"]`);
+        const expanded = button.getAttribute("aria-expanded") === "true";
+        const nextExpanded = !expanded;
+
+        button.setAttribute("aria-expanded", String(nextExpanded));
+        if (content) {
+          content.hidden = !nextExpanded;
+        }
+        postMapPanelState(panel, nextExpanded);
+      });
+    });
+
+    mapFrame.addEventListener("load", syncMapPanels);
+
     document.querySelectorAll("[data-mountain-id]").forEach((button) => {
       button.addEventListener("click", () => {
         mapFrame.contentWindow.postMessage(
