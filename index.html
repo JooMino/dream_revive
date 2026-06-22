@@ -304,6 +304,49 @@
       color: var(--ink);
     }
 
+    .mountain-list {
+      display: grid;
+      gap: 6px;
+      max-height: 245px;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      list-style: none;
+    }
+
+    .mountain-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      min-height: 32px;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      background: #f8faf6;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .mountain-button:hover,
+    .mountain-button:focus-visible {
+      border-color: var(--accent);
+      background: #e9f2ea;
+      outline: none;
+    }
+
+    .mountain-button span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
     @media (max-width: 1100px) {
       .workspace {
         grid-template-columns: 240px minmax(0, 1fr);
@@ -441,12 +484,52 @@
             <li><b>1순위</b><br>빨강 · 3,431개 좌표</li>
             <li><b>2순위</b><br>주황 · 2,957개 좌표</li>
             <li><b>3순위</b><br>노랑 · 4,050개 좌표</li>
-            <li><b>묘지·농지</b><br>발화 요인 거리 가중치</li>
-            <li><b>산명</b><br>지명 좌표 또는 산명 컬럼</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>산 모음</h2>
+          <ul class="mountain-list">
+            <li><button class="mountain-button" type="button" data-mountain-id="mubongsan">무봉산 <span>351.8m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="geondalsan">건달산 <span>336m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="taehaengsan">태행산 <span>295m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="sambongsan">삼봉산 <span>270.5m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="seobongsan">서봉산 <span>250.3m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="chilbosan">칠보산 <span>239m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="taebongsan">태봉산 <span>223.8m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="myeongbongsan">명봉산 <span>170.8m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="bonghwasan">봉화산 <span>168.6m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="cheolmasan">철마산 <span>168.2m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="seongtaesan">성태산 <span>166m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="gubongsan">구봉산 <span>158.1m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="cheongmyeongsan">청명산 <span>157.1m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="choroksan">초록산 <span>150m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="cheondeungsan">천등산 <span>146m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="gochobong">고초봉 <span>143.9m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="haewoonsan">해운산 <span>143m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="gyemyeongsan">계명산 <span>140m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="yeochisan">여치산 <span>130.7m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="haemangsan">해망산 <span>125.8m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="maebongsan">매봉산 <span>108.6m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="tapjaesan">탑재산 <span>67m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="hambaksan">함박산 <span>56.6m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="obongsan">오봉산 <span>68.5m</span></button></li>
+            <li><button class="mountain-button" type="button" data-mountain-id="samjeongdaesan">삼정대산 <span>73.2m</span></button></li>
           </ul>
         </section>
       </aside>
     </section>
   </main>
+  <script>
+    const mapFrame = document.querySelector(".map-frame");
+    document.querySelectorAll("[data-mountain-id]").forEach((button) => {
+      button.addEventListener("click", () => {
+        mapFrame.contentWindow.postMessage(
+          { type: "dream:fly-to-mountain", id: button.dataset.mountainId },
+          "*"
+        );
+      });
+    });
+  </script>
 </body>
 </html>
