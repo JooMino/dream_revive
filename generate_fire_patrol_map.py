@@ -19,6 +19,7 @@ SOIL_SHP = ROOT / "산림입지토양도" / "41590.shp"
 FACTORY_XLSX = ROOT / "화성시_제조업체_화재위험_우선순위별_목록.xlsx"
 FACTORY_PRIORITY_JS = ROOT / "factory_priority_layer.js"
 MOUNTAIN_LAYER_JS = ROOT / "mountain_layer.js"
+TRAIL_LAYER_JS = ROOT / "trail_layer.js"
 OUTPUT_HTML = ROOT / "hwaseong_fire_patrol_map.html"
 PROJECTED_CRS = "EPSG:5179"
 WEB_CRS = "EPSG:4326"
@@ -567,6 +568,27 @@ def install_mountain_layer_loader(
     html_path.write_text(html, encoding="utf-8")
 
 
+def install_trail_layer_loader(
+    html_path: Path, script_name: str = TRAIL_LAYER_JS.name
+) -> None:
+    html = html_path.read_text(encoding="utf-8")
+    html = re.sub(
+        r"\n\s*<!-- DREAM_TRAIL_LAYER_SCRIPT:start -->.*?"
+        r"<!-- DREAM_TRAIL_LAYER_SCRIPT:end -->\s*\n",
+        "\n",
+        html,
+        flags=re.S,
+    )
+
+    script = f"""
+<!-- DREAM_TRAIL_LAYER_SCRIPT:start -->
+<script src="{script_name}"></script>
+<!-- DREAM_TRAIL_LAYER_SCRIPT:end -->
+"""
+    html = html.replace("\n</html>", script + "\n</html>")
+    html_path.write_text(html, encoding="utf-8")
+
+
 def build_map(
     forest: gpd.GeoDataFrame,
     patrol_points: gpd.GeoDataFrame,
@@ -727,6 +749,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-factory-layer", action="store_true")
     parser.add_argument("--mountain-js", type=Path, default=MOUNTAIN_LAYER_JS)
     parser.add_argument("--skip-mountain-layer", action="store_true")
+    parser.add_argument("--trail-js", type=Path, default=TRAIL_LAYER_JS)
+    parser.add_argument("--skip-trail-layer", action="store_true")
     return parser.parse_args()
 
 
@@ -754,6 +778,9 @@ def main() -> None:
     if not args.skip_mountain_layer and args.mountain_js.exists():
         install_mountain_layer_loader(args.output, args.mountain_js.name)
 
+    if not args.skip_trail_layer and args.trail_js.exists():
+        install_trail_layer_loader(args.output, args.trail_js.name)
+
     print(f"Created: {args.output}")
     print(f"Displayed forest polygons: {min(args.max_polygons, len(forest)):,}")
     print(f"Patrol priority points: {len(patrol_points):,}")
@@ -762,6 +789,8 @@ def main() -> None:
         print(f"Factory priority points: {len(factory_points):,}")
     if not args.skip_mountain_layer and args.mountain_js.exists():
         print(f"Mountain label layer: {args.mountain_js.name}")
+    if not args.skip_trail_layer and args.trail_js.exists():
+        print(f"Trail layer: {args.trail_js.name}")
 
 
 if __name__ == "__main__":
