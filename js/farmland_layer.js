@@ -21,9 +21,9 @@
   const MAX_RADIUS = 1000;
   const radiusMeters = Math.max(1, Math.min(Number(apiConfig.radiusMeters || 1000), MAX_RADIUS));
   const minZoom = Number(apiConfig.minZoom || 11);
-  const displayMinZoom = Number(apiConfig.displayMinZoom || 15);
-  const markerRenderLimit = Number(apiConfig.markerRenderLimit || 500);
-  const polygonRenderLimit = Number(apiConfig.polygonRenderLimit || 0);
+  const displayMinZoom = Number(apiConfig.displayMinZoom || 14);
+  const markerRenderLimit = Number(apiConfig.markerRenderLimit || 600);
+  const polygonRenderLimit = Number(apiConfig.polygonRenderLimit ||600);
   const debounceMs = Number(apiConfig.reloadDebounceMs || 700);
   const markerLayer = L.layerGroup();
   const layer = L.geoJSON(null, {
