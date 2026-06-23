@@ -36,7 +36,16 @@
         "factoryPriority3": 158,
         "farmland": 2032,
         "fireHistory": 7
-      }
+      },
+      "riskScore": 486.2,
+      "riskComponents": {
+        "factoryPriority1": 142,
+        "factoryPriority2": 55.2,
+        "factoryPriority3": 47.4,
+        "farmland": 101.6,
+        "fireHistory": 140
+      },
+      "riskRank": 3
     },
     {
       "id": "gochobong",
@@ -54,7 +63,16 @@
         "factoryPriority3": 16,
         "farmland": 458,
         "fireHistory": 2
-      }
+      },
+      "riskScore": 95.3,
+      "riskComponents": {
+        "factoryPriority1": 9,
+        "factoryPriority2": 18.6,
+        "factoryPriority3": 4.8,
+        "farmland": 22.9,
+        "fireHistory": 40
+      },
+      "riskRank": 20
     },
     {
       "id": "sambongsan",
@@ -72,7 +90,16 @@
         "factoryPriority3": 29,
         "farmland": 2353,
         "fireHistory": 7
-      }
+      },
+      "riskScore": 300.4,
+      "riskComponents": {
+        "factoryPriority1": 28,
+        "factoryPriority2": 6,
+        "factoryPriority3": 8.7,
+        "farmland": 117.7,
+        "fireHistory": 140
+      },
+      "riskRank": 5
     },
     {
       "id": "seobongsan",
@@ -90,7 +117,16 @@
         "factoryPriority3": 299,
         "farmland": 3289,
         "fireHistory": 8
-      }
+      },
+      "riskScore": 795.2,
+      "riskComponents": {
+        "factoryPriority1": 276,
+        "factoryPriority2": 105,
+        "factoryPriority3": 89.7,
+        "farmland": 164.5,
+        "fireHistory": 160
+      },
+      "riskRank": 1
     },
     {
       "id": "cheolmasan",
@@ -108,7 +144,16 @@
         "factoryPriority3": 161,
         "farmland": 1415,
         "fireHistory": 4
-      }
+      },
+      "riskScore": 391.3,
+      "riskComponents": {
+        "factoryPriority1": 116,
+        "factoryPriority2": 76.2,
+        "factoryPriority3": 48.3,
+        "farmland": 70.8,
+        "fireHistory": 80
+      },
+      "riskRank": 4
     },
     {
       "id": "taebongsan",
@@ -126,7 +171,16 @@
         "factoryPriority3": 129,
         "farmland": 1290,
         "fireHistory": 2
-      }
+      },
+      "riskScore": 284.6,
+      "riskComponents": {
+        "factoryPriority1": 112,
+        "factoryPriority2": 29.4,
+        "factoryPriority3": 38.7,
+        "farmland": 64.5,
+        "fireHistory": 40
+      },
+      "riskRank": 6
     },
     {
       "id": "taehaengsan",
@@ -144,7 +198,16 @@
         "factoryPriority3": 201,
         "farmland": 3117,
         "fireHistory": 12
-      }
+      },
+      "riskScore": 701.2,
+      "riskComponents": {
+        "factoryPriority1": 155,
+        "factoryPriority2": 90,
+        "factoryPriority3": 60.3,
+        "farmland": 155.9,
+        "fireHistory": 240
+      },
+      "riskRank": 2
     },
     {
       "id": "range-relation-8906302",
@@ -162,7 +225,16 @@
         "factoryPriority3": 140,
         "farmland": 783,
         "fireHistory": 2
-      }
+      },
+      "riskScore": 261.8,
+      "riskComponents": {
+        "factoryPriority1": 92,
+        "factoryPriority2": 48.6,
+        "factoryPriority3": 42,
+        "farmland": 39.2,
+        "fireHistory": 40
+      },
+      "riskRank": 8
     },
     {
       "id": "range-way-471107763",
@@ -180,7 +252,16 @@
         "factoryPriority3": 164,
         "farmland": 178,
         "fireHistory": 3
-      }
+      },
+      "riskScore": 280.9,
+      "riskComponents": {
+        "factoryPriority1": 107,
+        "factoryPriority2": 55.8,
+        "factoryPriority3": 49.2,
+        "farmland": 8.9,
+        "fireHistory": 60
+      },
+      "riskRank": 7
     },
     {
       "id": "range-relation-8906326",
@@ -198,7 +279,16 @@
         "factoryPriority3": 1,
         "farmland": 994,
         "fireHistory": 4
-      }
+      },
+      "riskScore": 132.6,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0.3,
+        "farmland": 49.7,
+        "fireHistory": 80
+      },
+      "riskRank": 14
     },
     {
       "id": "range-relation-8906322",
@@ -216,7 +306,16 @@
         "factoryPriority3": 19,
         "farmland": 1144,
         "fireHistory": 7
-      }
+      },
+      "riskScore": 226.3,
+      "riskComponents": {
+        "factoryPriority1": 15,
+        "factoryPriority2": 8.4,
+        "factoryPriority3": 5.7,
+        "farmland": 57.2,
+        "fireHistory": 140
+      },
+      "riskRank": 9
     },
     {
       "id": "range-way-471440348",
@@ -234,7 +333,16 @@
         "factoryPriority3": 35,
         "farmland": 969,
         "fireHistory": 3
-      }
+      },
+      "riskScore": 169.4,
+      "riskComponents": {
+        "factoryPriority1": 30,
+        "factoryPriority2": 20.4,
+        "factoryPriority3": 10.5,
+        "farmland": 48.5,
+        "fireHistory": 60
+      },
+      "riskRank": 11
     },
     {
       "id": "range-way-776655432",
@@ -252,7 +360,16 @@
         "factoryPriority3": 114,
         "farmland": 381,
         "fireHistory": 2
-      }
+      },
+      "riskScore": 208.7,
+      "riskComponents": {
+        "factoryPriority1": 71,
+        "factoryPriority2": 44.4,
+        "factoryPriority3": 34.2,
+        "farmland": 19.1,
+        "fireHistory": 40
+      },
+      "riskRank": 10
     },
     {
       "id": "range-way-426574315",
@@ -270,7 +387,16 @@
         "factoryPriority3": 56,
         "farmland": 651,
         "fireHistory": 3
-      }
+      },
+      "riskScore": 167,
+      "riskComponents": {
+        "factoryPriority1": 39,
+        "factoryPriority2": 18.6,
+        "factoryPriority3": 16.8,
+        "farmland": 32.6,
+        "fireHistory": 60
+      },
+      "riskRank": 12
     },
     {
       "id": "range-relation-8906242",
@@ -288,7 +414,16 @@
         "factoryPriority3": 67,
         "farmland": 431,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 131.3,
+      "riskComponents": {
+        "factoryPriority1": 57,
+        "factoryPriority2": 12.6,
+        "factoryPriority3": 20.1,
+        "farmland": 21.6,
+        "fireHistory": 20
+      },
+      "riskRank": 15
     },
     {
       "id": "range-way-471375595",
@@ -306,7 +441,16 @@
         "factoryPriority3": 43,
         "farmland": 259,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 70.6,
+      "riskComponents": {
+        "factoryPriority1": 37,
+        "factoryPriority2": 7.8,
+        "factoryPriority3": 12.9,
+        "farmland": 13,
+        "fireHistory": 0
+      },
+      "riskRank": 24
     },
     {
       "id": "range-way-541808795",
@@ -324,7 +468,16 @@
         "factoryPriority3": 61,
         "farmland": 383,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 109.5,
+      "riskComponents": {
+        "factoryPriority1": 63,
+        "factoryPriority2": 9,
+        "factoryPriority3": 18.3,
+        "farmland": 19.2,
+        "fireHistory": 0
+      },
+      "riskRank": 18
     },
     {
       "id": "range-way-471107734",
@@ -342,7 +495,16 @@
         "factoryPriority3": 55,
         "farmland": 329,
         "fireHistory": 2
-      }
+      },
+      "riskScore": 145.4,
+      "riskComponents": {
+        "factoryPriority1": 49,
+        "factoryPriority2": 23.4,
+        "factoryPriority3": 16.5,
+        "farmland": 16.5,
+        "fireHistory": 40
+      },
+      "riskRank": 13
     },
     {
       "id": "range-relation-10386459",
@@ -360,7 +522,16 @@
         "factoryPriority3": 6,
         "farmland": 197,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 24.1,
+      "riskComponents": {
+        "factoryPriority1": 10,
+        "factoryPriority2": 2.4,
+        "factoryPriority3": 1.8,
+        "farmland": 9.9,
+        "fireHistory": 0
+      },
+      "riskRank": 47
     },
     {
       "id": "range-way-541810400",
@@ -378,7 +549,16 @@
         "factoryPriority3": 41,
         "farmland": 324,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 101.3,
+      "riskComponents": {
+        "factoryPriority1": 36,
+        "factoryPriority2": 16.8,
+        "factoryPriority3": 12.3,
+        "farmland": 16.2,
+        "fireHistory": 20
+      },
+      "riskRank": 19
     },
     {
       "id": "range-relation-8906223",
@@ -396,7 +576,16 @@
         "factoryPriority3": 39,
         "farmland": 185,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 87.2,
+      "riskComponents": {
+        "factoryPriority1": 50,
+        "factoryPriority2": 16.2,
+        "factoryPriority3": 11.7,
+        "farmland": 9.3,
+        "fireHistory": 0
+      },
+      "riskRank": 21
     },
     {
       "id": "range-relation-8906331",
@@ -414,7 +603,16 @@
         "factoryPriority3": 0,
         "farmland": 156,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 7.8,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 7.8,
+        "fireHistory": 0
+      },
+      "riskRank": 84
     },
     {
       "id": "range-way-541810104",
@@ -432,7 +630,16 @@
         "factoryPriority3": 15,
         "farmland": 234,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 41.6,
+      "riskComponents": {
+        "factoryPriority1": 20,
+        "factoryPriority2": 5.4,
+        "factoryPriority3": 4.5,
+        "farmland": 11.7,
+        "fireHistory": 0
+      },
+      "riskRank": 30
     },
     {
       "id": "range-way-470097656",
@@ -450,7 +657,16 @@
         "factoryPriority3": 1,
         "farmland": 10,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.8,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.5,
+        "fireHistory": 0
+      },
+      "riskRank": 173
     },
     {
       "id": "range-relation-8906294",
@@ -468,7 +684,16 @@
         "factoryPriority3": 77,
         "farmland": 53,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 116,
+      "riskComponents": {
+        "factoryPriority1": 45,
+        "factoryPriority2": 25.2,
+        "factoryPriority3": 23.1,
+        "farmland": 2.7,
+        "fireHistory": 20
+      },
+      "riskRank": 16
     },
     {
       "id": "range-way-541810382",
@@ -486,7 +711,16 @@
         "factoryPriority3": 28,
         "farmland": 260,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 52,
+      "riskComponents": {
+        "factoryPriority1": 24,
+        "factoryPriority2": 6.6,
+        "factoryPriority3": 8.4,
+        "farmland": 13,
+        "fireHistory": 0
+      },
+      "riskRank": 28
     },
     {
       "id": "range-way-470097657",
@@ -504,7 +738,16 @@
         "factoryPriority3": 19,
         "farmland": 44,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 54.1,
+      "riskComponents": {
+        "factoryPriority1": 16,
+        "factoryPriority2": 10.2,
+        "factoryPriority3": 5.7,
+        "farmland": 2.2,
+        "fireHistory": 20
+      },
+      "riskRank": 27
     },
     {
       "id": "range-way-481310710",
@@ -522,7 +765,16 @@
         "factoryPriority3": 0,
         "farmland": 209,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 10.5,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 10.5,
+        "fireHistory": 0
+      },
+      "riskRank": 74
     },
     {
       "id": "range-way-470097658",
@@ -540,7 +792,16 @@
         "factoryPriority3": 2,
         "farmland": 45,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 5.7,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 0.6,
+        "farmland": 2.3,
+        "fireHistory": 0
+      },
+      "riskRank": 93
     },
     {
       "id": "range-way-471452112",
@@ -558,7 +819,16 @@
         "factoryPriority3": 39,
         "farmland": 112,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 81.1,
+      "riskComponents": {
+        "factoryPriority1": 41,
+        "factoryPriority2": 22.8,
+        "factoryPriority3": 11.7,
+        "farmland": 5.6,
+        "fireHistory": 0
+      },
+      "riskRank": 22
     },
     {
       "id": "range-way-541808791",
@@ -576,7 +846,16 @@
         "factoryPriority3": 48,
         "farmland": 131,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 113.7,
+      "riskComponents": {
+        "factoryPriority1": 44,
+        "factoryPriority2": 28.8,
+        "factoryPriority3": 14.4,
+        "farmland": 6.6,
+        "fireHistory": 20
+      },
+      "riskRank": 17
     },
     {
       "id": "range-relation-12634981",
@@ -594,7 +873,16 @@
         "factoryPriority3": 2,
         "farmland": 296,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 38.4,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 14.8,
+        "fireHistory": 20
+      },
+      "riskRank": 32
     },
     {
       "id": "range-way-541806049",
@@ -612,7 +900,16 @@
         "factoryPriority3": 12,
         "farmland": 125,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 27.7,
+      "riskComponents": {
+        "factoryPriority1": 13,
+        "factoryPriority2": 4.8,
+        "factoryPriority3": 3.6,
+        "farmland": 6.3,
+        "fireHistory": 0
+      },
+      "riskRank": 41
     },
     {
       "id": "range-way-471452115",
@@ -630,7 +927,16 @@
         "factoryPriority3": 24,
         "farmland": 84,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 29.8,
+      "riskComponents": {
+        "factoryPriority1": 13,
+        "factoryPriority2": 5.4,
+        "factoryPriority3": 7.2,
+        "farmland": 4.2,
+        "fireHistory": 0
+      },
+      "riskRank": 38
     },
     {
       "id": "range-way-486974944",
@@ -648,7 +954,16 @@
         "factoryPriority3": 2,
         "farmland": 161,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 8.7,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 8.1,
+        "fireHistory": 0
+      },
+      "riskRank": 81
     },
     {
       "id": "range-way-470097655",
@@ -666,7 +981,16 @@
         "factoryPriority3": 0,
         "farmland": 60,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 23.6,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0,
+        "farmland": 3,
+        "fireHistory": 20
+      },
+      "riskRank": 49
     },
     {
       "id": "range-way-1317053086",
@@ -684,7 +1008,16 @@
         "factoryPriority3": 6,
         "farmland": 102,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 9.9,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 0,
+        "factoryPriority3": 1.8,
+        "farmland": 5.1,
+        "fireHistory": 0
+      },
+      "riskRank": 75
     },
     {
       "id": "range-way-541808793",
@@ -702,7 +1035,16 @@
         "factoryPriority3": 19,
         "farmland": 124,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 71.3,
+      "riskComponents": {
+        "factoryPriority1": 28,
+        "factoryPriority2": 11.4,
+        "factoryPriority3": 5.7,
+        "farmland": 6.2,
+        "fireHistory": 20
+      },
+      "riskRank": 23
     },
     {
       "id": "range-way-471452111",
@@ -720,7 +1062,16 @@
         "factoryPriority3": 36,
         "farmland": 105,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 64.1,
+      "riskComponents": {
+        "factoryPriority1": 30,
+        "factoryPriority2": 18,
+        "factoryPriority3": 10.8,
+        "farmland": 5.3,
+        "fireHistory": 0
+      },
+      "riskRank": 25
     },
     {
       "id": "range-way-1313688499",
@@ -738,7 +1089,16 @@
         "factoryPriority3": 0,
         "farmland": 127,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 6.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 6.4,
+        "fireHistory": 0
+      },
+      "riskRank": 91
     },
     {
       "id": "range-way-776655431",
@@ -756,7 +1116,16 @@
         "factoryPriority3": 29,
         "farmland": 97,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 43.4,
+      "riskComponents": {
+        "factoryPriority1": 19,
+        "factoryPriority2": 10.8,
+        "factoryPriority3": 8.7,
+        "farmland": 4.9,
+        "fireHistory": 0
+      },
+      "riskRank": 29
     },
     {
       "id": "range-relation-10755782",
@@ -774,7 +1143,16 @@
         "factoryPriority3": 13,
         "farmland": 61,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 29.6,
+      "riskComponents": {
+        "factoryPriority1": 16,
+        "factoryPriority2": 6.6,
+        "factoryPriority3": 3.9,
+        "farmland": 3.1,
+        "fireHistory": 0
+      },
+      "riskRank": 40
     },
     {
       "id": "range-way-764019240",
@@ -792,7 +1170,16 @@
         "factoryPriority3": 27,
         "farmland": 50,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 31,
+      "riskComponents": {
+        "factoryPriority1": 12,
+        "factoryPriority2": 8.4,
+        "factoryPriority3": 8.1,
+        "farmland": 2.5,
+        "fireHistory": 0
+      },
+      "riskRank": 37
     },
     {
       "id": "range-way-471107736",
@@ -810,7 +1197,16 @@
         "factoryPriority3": 0,
         "farmland": 196,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 29.8,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 9.8,
+        "fireHistory": 20
+      },
+      "riskRank": 39
     },
     {
       "id": "range-way-471998647",
@@ -828,7 +1224,16 @@
         "factoryPriority3": 19,
         "farmland": 20,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 56.3,
+      "riskComponents": {
+        "factoryPriority1": 17,
+        "factoryPriority2": 12.6,
+        "factoryPriority3": 5.7,
+        "farmland": 1,
+        "fireHistory": 20
+      },
+      "riskRank": 26
     },
     {
       "id": "range-relation-12634980",
@@ -846,7 +1251,16 @@
         "factoryPriority3": 13,
         "farmland": 34,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 19.6,
+      "riskComponents": {
+        "factoryPriority1": 11,
+        "factoryPriority2": 3,
+        "factoryPriority3": 3.9,
+        "farmland": 1.7,
+        "fireHistory": 0
+      },
+      "riskRank": 63
     },
     {
       "id": "range-way-471317559",
@@ -864,7 +1278,16 @@
         "factoryPriority3": 0,
         "farmland": 17,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.9,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.9,
+        "fireHistory": 0
+      },
+      "riskRank": 170
     },
     {
       "id": "range-way-541808245",
@@ -882,7 +1305,16 @@
         "factoryPriority3": 8,
         "farmland": 67,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 32.4,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 3.6,
+        "factoryPriority3": 2.4,
+        "farmland": 3.4,
+        "fireHistory": 20
+      },
+      "riskRank": 35
     },
     {
       "id": "range-way-518028216",
@@ -900,7 +1332,16 @@
         "factoryPriority3": 0,
         "farmland": 60,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 24,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 3,
+        "fireHistory": 20
+      },
+      "riskRank": 48
     },
     {
       "id": "range-way-669621256",
@@ -918,7 +1359,16 @@
         "factoryPriority3": 0,
         "farmland": 127,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 26.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 6.4,
+        "fireHistory": 20
+      },
+      "riskRank": 42
     },
     {
       "id": "range-way-617927158",
@@ -936,7 +1386,16 @@
         "factoryPriority3": 1,
         "farmland": 49,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 24.8,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 2.5,
+        "fireHistory": 20
+      },
+      "riskRank": 46
     },
     {
       "id": "range-way-617927594",
@@ -954,7 +1413,16 @@
         "factoryPriority3": 19,
         "farmland": 25,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 36.4,
+      "riskComponents": {
+        "factoryPriority1": 24,
+        "factoryPriority2": 5.4,
+        "factoryPriority3": 5.7,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 33
     },
     {
       "id": "range-way-471440363",
@@ -972,7 +1440,16 @@
         "factoryPriority3": 3,
         "farmland": 3,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.1,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.9,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 109
     },
     {
       "id": "range-way-470097651",
@@ -990,7 +1467,16 @@
         "factoryPriority3": 1,
         "farmland": 62,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.4,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 3.1,
+        "fireHistory": 0
+      },
+      "riskRank": 106
     },
     {
       "id": "range-way-1083787941",
@@ -1008,7 +1494,16 @@
         "factoryPriority3": 13,
         "farmland": 81,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 40.8,
+      "riskComponents": {
+        "factoryPriority1": 11,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 3.9,
+        "farmland": 4.1,
+        "fireHistory": 20
+      },
+      "riskRank": 31
     },
     {
       "id": "range-way-471998648",
@@ -1026,7 +1521,16 @@
         "factoryPriority3": 1,
         "farmland": 52,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 6.1,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 0.3,
+        "farmland": 2.6,
+        "fireHistory": 0
+      },
+      "riskRank": 92
     },
     {
       "id": "range-way-1321757202",
@@ -1044,7 +1548,16 @@
         "factoryPriority3": 8,
         "farmland": 60,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 12.8,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 2.4,
+        "factoryPriority3": 2.4,
+        "farmland": 3,
+        "fireHistory": 0
+      },
+      "riskRank": 69
     },
     {
       "id": "range-way-617928290",
@@ -1062,7 +1575,16 @@
         "factoryPriority3": 0,
         "farmland": 99,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 25,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 5,
+        "fireHistory": 20
+      },
+      "riskRank": 45
     },
     {
       "id": "range-way-481310706",
@@ -1080,7 +1602,16 @@
         "factoryPriority3": 0,
         "farmland": 86,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 4.3,
+        "fireHistory": 0
+      },
+      "riskRank": 107
     },
     {
       "id": "range-way-541810106",
@@ -1098,7 +1629,16 @@
         "factoryPriority3": 11,
         "farmland": 75,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 36.1,
+      "riskComponents": {
+        "factoryPriority1": 6,
+        "factoryPriority2": 3,
+        "factoryPriority3": 3.3,
+        "farmland": 3.8,
+        "fireHistory": 20
+      },
+      "riskRank": 34
     },
     {
       "id": "range-way-1321757186",
@@ -1116,7 +1656,16 @@
         "factoryPriority3": 5,
         "farmland": 92,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 12.9,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 1.5,
+        "farmland": 4.6,
+        "fireHistory": 0
+      },
+      "riskRank": 67
     },
     {
       "id": "range-way-471107759",
@@ -1134,7 +1683,16 @@
         "factoryPriority3": 0,
         "farmland": 93,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.7,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 4.7,
+        "fireHistory": 0
+      },
+      "riskRank": 100
     },
     {
       "id": "range-way-471107758",
@@ -1152,7 +1710,16 @@
         "factoryPriority3": 0,
         "farmland": 19,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 21,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1,
+        "fireHistory": 20
+      },
+      "riskRank": 56
     },
     {
       "id": "range-way-1321757188",
@@ -1170,7 +1737,16 @@
         "factoryPriority3": 0,
         "farmland": 41,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 2.1,
+        "fireHistory": 0
+      },
+      "riskRank": 140
     },
     {
       "id": "range-way-471107737",
@@ -1188,7 +1764,16 @@
         "factoryPriority3": 1,
         "farmland": 87,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 25.7,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 4.4,
+        "fireHistory": 20
+      },
+      "riskRank": 43
     },
     {
       "id": "range-way-471107733",
@@ -1206,7 +1791,16 @@
         "factoryPriority3": 0,
         "farmland": 81,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 4.1,
+        "fireHistory": 0
+      },
+      "riskRank": 110
     },
     {
       "id": "range-way-481310708",
@@ -1224,7 +1818,16 @@
         "factoryPriority3": 0,
         "farmland": 93,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.7,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 4.7,
+        "fireHistory": 0
+      },
+      "riskRank": 101
     },
     {
       "id": "range-way-1464300591",
@@ -1242,7 +1845,16 @@
         "factoryPriority3": 13,
         "farmland": 39,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 22.8,
+      "riskComponents": {
+        "factoryPriority1": 8,
+        "factoryPriority2": 9,
+        "factoryPriority3": 3.9,
+        "farmland": 2,
+        "fireHistory": 0
+      },
+      "riskRank": 53
     },
     {
       "id": "range-way-1464300596",
@@ -1260,7 +1872,16 @@
         "factoryPriority3": 6,
         "farmland": 13,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 13.7,
+      "riskComponents": {
+        "factoryPriority1": 7,
+        "factoryPriority2": 4.2,
+        "factoryPriority3": 1.8,
+        "farmland": 0.7,
+        "fireHistory": 0
+      },
+      "riskRank": 66
     },
     {
       "id": "range-way-518026534",
@@ -1278,7 +1899,16 @@
         "factoryPriority3": 13,
         "farmland": 71,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 22.3,
+      "riskComponents": {
+        "factoryPriority1": 10,
+        "factoryPriority2": 4.8,
+        "factoryPriority3": 3.9,
+        "farmland": 3.6,
+        "fireHistory": 0
+      },
+      "riskRank": 54
     },
     {
       "id": "range-way-617927159",
@@ -1296,7 +1926,16 @@
         "factoryPriority3": 1,
         "farmland": 57,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 25.2,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 2.9,
+        "fireHistory": 20
+      },
+      "riskRank": 44
     },
     {
       "id": "range-way-669621553",
@@ -1314,7 +1953,16 @@
         "factoryPriority3": 14,
         "farmland": 24,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 23,
+      "riskComponents": {
+        "factoryPriority1": 11,
+        "factoryPriority2": 6.6,
+        "factoryPriority3": 4.2,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 52
     },
     {
       "id": "range-way-935753484",
@@ -1332,7 +1980,16 @@
         "factoryPriority3": 0,
         "farmland": 90,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.5,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 4.5,
+        "fireHistory": 0
+      },
+      "riskRank": 103
     },
     {
       "id": "range-way-1254886014",
@@ -1350,7 +2007,16 @@
         "factoryPriority3": 4,
         "farmland": 60,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 8,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 1.2,
+        "farmland": 3,
+        "fireHistory": 0
+      },
+      "riskRank": 83
     },
     {
       "id": "range-way-471107742",
@@ -1368,7 +2034,16 @@
         "factoryPriority3": 0,
         "farmland": 63,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 23.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 3.2,
+        "fireHistory": 20
+      },
+      "riskRank": 51
     },
     {
       "id": "range-way-541806469",
@@ -1386,7 +2061,16 @@
         "factoryPriority3": 0,
         "farmland": 29,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.5,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.5,
+        "fireHistory": 0
+      },
+      "riskRank": 128
     },
     {
       "id": "range-way-1079285298",
@@ -1404,7 +2088,16 @@
         "factoryPriority3": 4,
         "farmland": 25,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 9.9,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 2.4,
+        "factoryPriority3": 1.2,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 76
     },
     {
       "id": "range-way-1464300595",
@@ -1422,7 +2115,16 @@
         "factoryPriority3": 8,
         "farmland": 6,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 18.3,
+      "riskComponents": {
+        "factoryPriority1": 9,
+        "factoryPriority2": 6.6,
+        "factoryPriority3": 2.4,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 64
     },
     {
       "id": "range-way-470135002",
@@ -1440,7 +2142,16 @@
         "factoryPriority3": 1,
         "farmland": 12,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.7,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 0.3,
+        "farmland": 0.6,
+        "fireHistory": 0
+      },
+      "riskRank": 127
     },
     {
       "id": "range-way-1321757183",
@@ -1458,7 +2169,16 @@
         "factoryPriority3": 8,
         "farmland": 64,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 17,
+      "riskComponents": {
+        "factoryPriority1": 9,
+        "factoryPriority2": 2.4,
+        "factoryPriority3": 2.4,
+        "farmland": 3.2,
+        "fireHistory": 0
+      },
+      "riskRank": 65
     },
     {
       "id": "range-way-484156989",
@@ -1476,7 +2196,16 @@
         "factoryPriority3": 0,
         "farmland": 15,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.8,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.8,
+        "fireHistory": 0
+      },
+      "riskRank": 174
     },
     {
       "id": "range-way-1259370009",
@@ -1494,7 +2223,16 @@
         "factoryPriority3": 8,
         "farmland": 17,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 12.7,
+      "riskComponents": {
+        "factoryPriority1": 7,
+        "factoryPriority2": 2.4,
+        "factoryPriority3": 2.4,
+        "farmland": 0.9,
+        "fireHistory": 0
+      },
+      "riskRank": 70
     },
     {
       "id": "range-way-471452116",
@@ -1512,7 +2250,16 @@
         "factoryPriority3": 9,
         "farmland": 2,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 12.2,
+      "riskComponents": {
+        "factoryPriority1": 4,
+        "factoryPriority2": 5.4,
+        "factoryPriority3": 2.7,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 71
     },
     {
       "id": "range-way-470097654",
@@ -1530,7 +2277,16 @@
         "factoryPriority3": 0,
         "farmland": 0,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0,
+        "fireHistory": 0
+      },
+      "riskRank": 191
     },
     {
       "id": "range-way-484156987",
@@ -1548,7 +2304,16 @@
         "factoryPriority3": 1,
         "farmland": 16,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.8,
+        "fireHistory": 0
+      },
+      "riskRank": 165
     },
     {
       "id": "range-way-471998644",
@@ -1566,7 +2331,16 @@
         "factoryPriority3": 4,
         "farmland": 6,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 10.7,
+      "riskComponents": {
+        "factoryPriority1": 8,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 1.2,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 73
     },
     {
       "id": "range-way-541810107",
@@ -1584,7 +2358,16 @@
         "factoryPriority3": 0,
         "farmland": 6,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.3,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 160
     },
     {
       "id": "range-way-481567866",
@@ -1602,7 +2385,16 @@
         "factoryPriority3": 0,
         "farmland": 23,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 162
     },
     {
       "id": "range-way-450200158",
@@ -1620,7 +2412,16 @@
         "factoryPriority3": 5,
         "farmland": 20,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 9.9,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 2.4,
+        "factoryPriority3": 1.5,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 77
     },
     {
       "id": "range-way-1517384475",
@@ -1638,7 +2439,16 @@
         "factoryPriority3": 0,
         "farmland": 1,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 20.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.1,
+        "fireHistory": 20
+      },
+      "riskRank": 59
     },
     {
       "id": "range-way-617927592",
@@ -1656,7 +2466,16 @@
         "factoryPriority3": 4,
         "farmland": 4,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 9.4,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 3,
+        "factoryPriority3": 1.2,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 79
     },
     {
       "id": "range-way-471998625",
@@ -1674,7 +2493,16 @@
         "factoryPriority3": 8,
         "farmland": 24,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 9.6,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 3,
+        "factoryPriority3": 2.4,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 78
     },
     {
       "id": "range-way-481300026",
@@ -1692,7 +2520,16 @@
         "factoryPriority3": 0,
         "farmland": 0,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 20,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0,
+        "fireHistory": 20
+      },
+      "riskRank": 61
     },
     {
       "id": "range-way-1254886013",
@@ -1710,7 +2547,16 @@
         "factoryPriority3": 5,
         "farmland": 29,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 5.6,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 1.5,
+        "farmland": 1.5,
+        "fireHistory": 0
+      },
+      "riskRank": 95
     },
     {
       "id": "range-way-541806464",
@@ -1728,7 +2574,16 @@
         "factoryPriority3": 5,
         "farmland": 34,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 8.8,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 1.5,
+        "farmland": 1.7,
+        "fireHistory": 0
+      },
+      "riskRank": 80
     },
     {
       "id": "range-way-617927593",
@@ -1746,7 +2601,16 @@
         "factoryPriority3": 6,
         "farmland": 0,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 8.4,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 3.6,
+        "factoryPriority3": 1.8,
+        "farmland": 0,
+        "fireHistory": 0
+      },
+      "riskRank": 82
     },
     {
       "id": "range-way-1321757184",
@@ -1764,7 +2628,16 @@
         "factoryPriority3": 5,
         "farmland": 32,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 31.1,
+      "riskComponents": {
+        "factoryPriority1": 8,
+        "factoryPriority2": 0,
+        "factoryPriority3": 1.5,
+        "farmland": 1.6,
+        "fireHistory": 20
+      },
+      "riskRank": 36
     },
     {
       "id": "range-way-426574308",
@@ -1782,7 +2655,16 @@
         "factoryPriority3": 1,
         "farmland": 25,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.6,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 151
     },
     {
       "id": "range-way-1321757198",
@@ -1800,7 +2682,16 @@
         "factoryPriority3": 0,
         "farmland": 59,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 3,
+        "fireHistory": 0
+      },
+      "riskRank": 124
     },
     {
       "id": "range-way-976231644",
@@ -1818,7 +2709,16 @@
         "factoryPriority3": 5,
         "farmland": 28,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 1.5,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 111
     },
     {
       "id": "range-way-1338953149",
@@ -1836,7 +2736,16 @@
         "factoryPriority3": 0,
         "farmland": 1,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 188
     },
     {
       "id": "range-way-1257174250",
@@ -1854,7 +2763,16 @@
         "factoryPriority3": 2,
         "farmland": 50,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 2.5,
+        "fireHistory": 0
+      },
+      "riskRank": 122
     },
     {
       "id": "range-way-528755527",
@@ -1872,7 +2790,16 @@
         "factoryPriority3": 0,
         "farmland": 5,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 181
     },
     {
       "id": "range-way-471998633",
@@ -1890,7 +2817,16 @@
         "factoryPriority3": 3,
         "farmland": 25,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.8,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0.9,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 115
     },
     {
       "id": "range-way-1464300597",
@@ -1908,7 +2844,16 @@
         "factoryPriority3": 3,
         "farmland": 7,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.9,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0.9,
+        "farmland": 0.4,
+        "fireHistory": 0
+      },
+      "riskRank": 114
     },
     {
       "id": "range-way-471382491",
@@ -1926,7 +2871,16 @@
         "factoryPriority3": 0,
         "farmland": 24,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 163
     },
     {
       "id": "range-way-1313688501",
@@ -1944,7 +2898,16 @@
         "factoryPriority3": 0,
         "farmland": 22,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.1,
+        "fireHistory": 0
+      },
+      "riskRank": 166
     },
     {
       "id": "range-way-1321757201",
@@ -1962,7 +2925,16 @@
         "factoryPriority3": 2,
         "farmland": 27,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.6,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0.6,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 117
     },
     {
       "id": "range-way-1254885994",
@@ -1980,7 +2952,16 @@
         "factoryPriority3": 8,
         "farmland": 14,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.1,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 2.4,
+        "farmland": 0.7,
+        "fireHistory": 0
+      },
+      "riskRank": 112
     },
     {
       "id": "range-way-528755526",
@@ -1998,7 +2979,16 @@
         "factoryPriority3": 0,
         "farmland": 0,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0,
+        "fireHistory": 0
+      },
+      "riskRank": 192
     },
     {
       "id": "range-way-1338953175",
@@ -2016,7 +3006,16 @@
         "factoryPriority3": 1,
         "farmland": 26,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.6,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 152
     },
     {
       "id": "range-way-642698309",
@@ -2034,7 +3033,16 @@
         "factoryPriority3": 0,
         "farmland": 44,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 2.2,
+        "fireHistory": 0
+      },
+      "riskRank": 137
     },
     {
       "id": "range-way-518028217",
@@ -2052,7 +3060,16 @@
         "factoryPriority3": 0,
         "farmland": 25,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.3,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 134
     },
     {
       "id": "range-way-426582665",
@@ -2070,7 +3087,16 @@
         "factoryPriority3": 1,
         "farmland": 1,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 23.6,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 0.3,
+        "farmland": 0.1,
+        "fireHistory": 20
+      },
+      "riskRank": 50
     },
     {
       "id": "range-way-471998645",
@@ -2088,7 +3114,16 @@
         "factoryPriority3": 3,
         "farmland": 1,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 7.7,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 0.9,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 85
     },
     {
       "id": "range-way-471998656",
@@ -2106,7 +3141,16 @@
         "factoryPriority3": 0,
         "farmland": 13,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 20.7,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.7,
+        "fireHistory": 20
+      },
+      "riskRank": 57
     },
     {
       "id": "range-way-935753393",
@@ -2124,7 +3168,16 @@
         "factoryPriority3": 0,
         "farmland": 5,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 182
     },
     {
       "id": "range-way-471998626",
@@ -2142,7 +3195,16 @@
         "factoryPriority3": 6,
         "farmland": 19,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 12,
+      "riskComponents": {
+        "factoryPriority1": 5,
+        "factoryPriority2": 4.2,
+        "factoryPriority3": 1.8,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 72
     },
     {
       "id": "range-way-471998628",
@@ -2160,7 +3222,16 @@
         "factoryPriority3": 1,
         "farmland": 22,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0.3,
+        "farmland": 1.1,
+        "fireHistory": 0
+      },
+      "riskRank": 144
     },
     {
       "id": "range-way-484156990",
@@ -2178,7 +3249,16 @@
         "factoryPriority3": 0,
         "farmland": 5,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 183
     },
     {
       "id": "range-way-471998634",
@@ -2196,7 +3276,16 @@
         "factoryPriority3": 0,
         "farmland": 42,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 2.1,
+        "fireHistory": 0
+      },
+      "riskRank": 141
     },
     {
       "id": "range-way-669621257",
@@ -2214,7 +3303,16 @@
         "factoryPriority3": 0,
         "farmland": 34,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0,
+        "farmland": 1.7,
+        "fireHistory": 0
+      },
+      "riskRank": 135
     },
     {
       "id": "range-way-471998649",
@@ -2232,7 +3330,16 @@
         "factoryPriority3": 2,
         "farmland": 0,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.6,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 0,
+        "fireHistory": 0
+      },
+      "riskRank": 153
     },
     {
       "id": "range-way-471379938",
@@ -2250,7 +3357,16 @@
         "factoryPriority3": 3,
         "farmland": 26,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.2,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.9,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 119
     },
     {
       "id": "range-way-518028219",
@@ -2268,7 +3384,16 @@
         "factoryPriority3": 2,
         "farmland": 19,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.6,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 154
     },
     {
       "id": "range-way-1321757195",
@@ -2286,7 +3411,16 @@
         "factoryPriority3": 3,
         "farmland": 27,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.5,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 0.9,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 104
     },
     {
       "id": "range-way-475755514",
@@ -2304,7 +3438,16 @@
         "factoryPriority3": 0,
         "farmland": 22,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.1,
+        "fireHistory": 0
+      },
+      "riskRank": 167
     },
     {
       "id": "range-way-1255994510",
@@ -2322,7 +3465,16 @@
         "factoryPriority3": 0,
         "farmland": 2,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 20.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.1,
+        "fireHistory": 20
+      },
+      "riskRank": 60
     },
     {
       "id": "range-way-471328840",
@@ -2340,7 +3492,16 @@
         "factoryPriority3": 2,
         "farmland": 9,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.1,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 0.5,
+        "fireHistory": 0
+      },
+      "riskRank": 123
     },
     {
       "id": "range-way-642698310",
@@ -2358,7 +3519,16 @@
         "factoryPriority3": 0,
         "farmland": 31,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.6,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.6,
+        "fireHistory": 0
+      },
+      "riskRank": 155
     },
     {
       "id": "range-way-1193007862",
@@ -2376,7 +3546,16 @@
         "factoryPriority3": 2,
         "farmland": 8,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 0.4,
+        "fireHistory": 0
+      },
+      "riskRank": 145
     },
     {
       "id": "range-way-541810389",
@@ -2394,7 +3573,16 @@
         "factoryPriority3": 1,
         "farmland": 23,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.5,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 105
     },
     {
       "id": "range-way-518028218",
@@ -2412,7 +3600,16 @@
         "factoryPriority3": 0,
         "farmland": 18,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.9,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.9,
+        "fireHistory": 0
+      },
+      "riskRank": 171
     },
     {
       "id": "range-way-1321757189",
@@ -2430,7 +3627,16 @@
         "factoryPriority3": 0,
         "farmland": 20,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.6,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 118
     },
     {
       "id": "range-way-935753392",
@@ -2448,7 +3654,16 @@
         "factoryPriority3": 1,
         "farmland": 9,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 2.4,
+        "factoryPriority3": 0.3,
+        "farmland": 0.5,
+        "fireHistory": 0
+      },
+      "riskRank": 120
     },
     {
       "id": "range-way-976231645",
@@ -2466,7 +3681,16 @@
         "factoryPriority3": 0,
         "farmland": 10,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.5,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.5,
+        "fireHistory": 0
+      },
+      "riskRank": 178
     },
     {
       "id": "range-way-541808246",
@@ -2484,7 +3708,16 @@
         "factoryPriority3": 0,
         "farmland": 14,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 21.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0,
+        "farmland": 0.7,
+        "fireHistory": 20
+      },
+      "riskRank": 55
     },
     {
       "id": "range-way-1321757219",
@@ -2502,7 +3735,16 @@
         "factoryPriority3": 8,
         "farmland": 27,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 7.4,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 2.4,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 86
     },
     {
       "id": "range-way-665596175",
@@ -2520,7 +3762,16 @@
         "factoryPriority3": 1,
         "farmland": 10,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.8,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.5,
+        "fireHistory": 0
+      },
+      "riskRank": 175
     },
     {
       "id": "range-way-481343936",
@@ -2538,7 +3789,16 @@
         "factoryPriority3": 0,
         "farmland": 41,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 2.1,
+        "fireHistory": 0
+      },
+      "riskRank": 142
     },
     {
       "id": "range-way-642697847",
@@ -2556,7 +3816,16 @@
         "factoryPriority3": 3,
         "farmland": 7,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 0.9,
+        "farmland": 0.4,
+        "fireHistory": 0
+      },
+      "riskRank": 130
     },
     {
       "id": "range-way-471998643",
@@ -2574,7 +3843,16 @@
         "factoryPriority3": 5,
         "farmland": 2,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 7.4,
+      "riskComponents": {
+        "factoryPriority1": 4,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 1.5,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 87
     },
     {
       "id": "range-way-541808247",
@@ -2592,7 +3870,16 @@
         "factoryPriority3": 2,
         "farmland": 4,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0.6,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 157
     },
     {
       "id": "range-way-1257174238",
@@ -2610,7 +3897,16 @@
         "factoryPriority3": 3,
         "farmland": 24,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.9,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 143
     },
     {
       "id": "range-way-1464300592",
@@ -2628,7 +3924,16 @@
         "factoryPriority3": 0,
         "farmland": 17,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.9,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.9,
+        "fireHistory": 0
+      },
+      "riskRank": 172
     },
     {
       "id": "range-way-1321757207",
@@ -2646,7 +3951,16 @@
         "factoryPriority3": 0,
         "farmland": 27,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 146
     },
     {
       "id": "range-way-471998658",
@@ -2664,7 +3978,16 @@
         "factoryPriority3": 0,
         "farmland": 36,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.8,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.8,
+        "fireHistory": 0
+      },
+      "riskRank": 149
     },
     {
       "id": "range-way-541806996",
@@ -2682,7 +4005,16 @@
         "factoryPriority3": 4,
         "farmland": 4,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 7.2,
+      "riskComponents": {
+        "factoryPriority1": 4,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 1.2,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 88
     },
     {
       "id": "range-way-1338953162",
@@ -2700,7 +4032,16 @@
         "factoryPriority3": 1,
         "farmland": 3,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.5,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 156
     },
     {
       "id": "range-way-935753394",
@@ -2718,7 +4059,16 @@
         "factoryPriority3": 1,
         "farmland": 4,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.5,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 179
     },
     {
       "id": "range-way-976231646",
@@ -2736,7 +4086,16 @@
         "factoryPriority3": 1,
         "farmland": 9,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.8,
+      "riskComponents": {
+        "factoryPriority1": 4,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.5,
+        "fireHistory": 0
+      },
+      "riskRank": 99
     },
     {
       "id": "range-way-1464300599",
@@ -2754,7 +4113,16 @@
         "factoryPriority3": 4,
         "farmland": 0,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 1.2,
+        "farmland": 0,
+        "fireHistory": 0
+      },
+      "riskRank": 131
     },
     {
       "id": "range-way-1096379096",
@@ -2772,7 +4140,16 @@
         "factoryPriority3": 7,
         "farmland": 14,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 6.6,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 2.1,
+        "farmland": 0.7,
+        "fireHistory": 0
+      },
+      "riskRank": 90
     },
     {
       "id": "range-way-528755529",
@@ -2790,7 +4167,16 @@
         "factoryPriority3": 0,
         "farmland": 11,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.6,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.6,
+        "fireHistory": 0
+      },
+      "riskRank": 176
     },
     {
       "id": "range-way-1321757206",
@@ -2808,7 +4194,16 @@
         "factoryPriority3": 3,
         "farmland": 26,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.2,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.9,
+        "farmland": 1.3,
+        "fireHistory": 0
+      },
+      "riskRank": 108
     },
     {
       "id": "range-way-1321757191",
@@ -2826,7 +4221,16 @@
         "factoryPriority3": 0,
         "farmland": 23,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.2,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 121
     },
     {
       "id": "range-way-471998657",
@@ -2844,7 +4248,16 @@
         "factoryPriority3": 0,
         "farmland": 48,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 2.4,
+        "fireHistory": 0
+      },
+      "riskRank": 132
     },
     {
       "id": "range-way-1321757185",
@@ -2862,7 +4275,16 @@
         "factoryPriority3": 2,
         "farmland": 6,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 5.1,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 0.6,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 96
     },
     {
       "id": "range-way-471998627",
@@ -2880,7 +4302,16 @@
         "factoryPriority3": 3,
         "farmland": 19,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4.6,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 0.9,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 102
     },
     {
       "id": "range-way-1256777268",
@@ -2898,7 +4329,16 @@
         "factoryPriority3": 4,
         "farmland": 1,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 12.9,
+      "riskComponents": {
+        "factoryPriority1": 8,
+        "factoryPriority2": 3.6,
+        "factoryPriority3": 1.2,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 68
     },
     {
       "id": "range-way-1464300594",
@@ -2916,7 +4356,16 @@
         "factoryPriority3": 2,
         "farmland": 24,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.8,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 126
     },
     {
       "id": "range-way-1321757190",
@@ -2934,7 +4383,16 @@
         "factoryPriority3": 1,
         "farmland": 27,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 5.7,
+      "riskComponents": {
+        "factoryPriority1": 4,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 94
     },
     {
       "id": "range-way-541808248",
@@ -2952,7 +4410,16 @@
         "factoryPriority3": 4,
         "farmland": 1,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.9,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 1.2,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 147
     },
     {
       "id": "range-way-1257174241",
@@ -2970,7 +4437,16 @@
         "factoryPriority3": 1,
         "farmland": 18,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.9,
+        "fireHistory": 0
+      },
+      "riskRank": 164
     },
     {
       "id": "range-way-1321757203",
@@ -2988,7 +4464,16 @@
         "factoryPriority3": 3,
         "farmland": 19,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.9,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.9,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 148
     },
     {
       "id": "range-way-935753391",
@@ -3006,7 +4491,16 @@
         "factoryPriority3": 0,
         "farmland": 3,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 185
     },
     {
       "id": "range-way-1321757187",
@@ -3024,7 +4518,16 @@
         "factoryPriority3": 1,
         "farmland": 37,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 1.9,
+        "fireHistory": 0
+      },
+      "riskRank": 138
     },
     {
       "id": "range-way-935753390",
@@ -3042,7 +4545,16 @@
         "factoryPriority3": 0,
         "farmland": 28,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 158
     },
     {
       "id": "range-way-935753389",
@@ -3060,7 +4572,16 @@
         "factoryPriority3": 0,
         "farmland": 28,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 159
     },
     {
       "id": "range-way-1255994457",
@@ -3078,7 +4599,16 @@
         "factoryPriority3": 0,
         "farmland": 10,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 20.5,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.5,
+        "fireHistory": 20
+      },
+      "riskRank": 58
     },
     {
       "id": "range-way-1256866475",
@@ -3096,7 +4626,16 @@
         "factoryPriority3": 5,
         "farmland": 13,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 1.5,
+        "farmland": 0.7,
+        "fireHistory": 0
+      },
+      "riskRank": 139
     },
     {
       "id": "range-way-1338953176",
@@ -3114,7 +4653,16 @@
         "factoryPriority3": 0,
         "farmland": 1,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.1,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 168
     },
     {
       "id": "range-way-1321757197",
@@ -3132,7 +4680,16 @@
         "factoryPriority3": 2,
         "farmland": 24,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 3.8,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 1.2,
+        "fireHistory": 0
+      },
+      "riskRank": 116
     },
     {
       "id": "range-way-1257174261",
@@ -3150,7 +4707,16 @@
         "factoryPriority3": 0,
         "farmland": 19,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 169
     },
     {
       "id": "range-way-1338953150",
@@ -3168,7 +4734,16 @@
         "factoryPriority3": 0,
         "farmland": 1,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.1,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.1,
+        "fireHistory": 0
+      },
+      "riskRank": 189
     },
     {
       "id": "range-way-1464300593",
@@ -3186,7 +4761,16 @@
         "factoryPriority3": 3,
         "farmland": 11,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.5,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.9,
+        "farmland": 0.6,
+        "fireHistory": 0
+      },
+      "riskRank": 129
     },
     {
       "id": "range-way-323215859",
@@ -3204,7 +4788,16 @@
         "factoryPriority3": 3,
         "farmland": 28,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.9,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0.9,
+        "farmland": 1.4,
+        "fireHistory": 0
+      },
+      "riskRank": 125
     },
     {
       "id": "range-way-1495984824",
@@ -3222,7 +4815,16 @@
         "factoryPriority3": 0,
         "farmland": 3,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 186
     },
     {
       "id": "range-way-1464300598",
@@ -3240,7 +4842,16 @@
         "factoryPriority3": 0,
         "farmland": 9,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.5,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.5,
+        "fireHistory": 0
+      },
+      "riskRank": 180
     },
     {
       "id": "range-way-830664840",
@@ -3258,7 +4869,16 @@
         "factoryPriority3": 1,
         "farmland": 0,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 5.1,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 1.8,
+        "factoryPriority3": 0.3,
+        "farmland": 0,
+        "fireHistory": 0
+      },
+      "riskRank": 97
     },
     {
       "id": "range-way-1256866515",
@@ -3276,7 +4896,16 @@
         "factoryPriority3": 8,
         "farmland": 12,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 4,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0,
+        "factoryPriority3": 2.4,
+        "farmland": 0.6,
+        "fireHistory": 0
+      },
+      "riskRank": 113
     },
     {
       "id": "range-way-1096379095",
@@ -3294,7 +4923,16 @@
         "factoryPriority3": 0,
         "farmland": 13,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.3,
+      "riskComponents": {
+        "factoryPriority1": 1,
+        "factoryPriority2": 0.6,
+        "factoryPriority3": 0,
+        "farmland": 0.7,
+        "fireHistory": 0
+      },
+      "riskRank": 136
     },
     {
       "id": "range-way-1079285296",
@@ -3312,7 +4950,16 @@
         "factoryPriority3": 4,
         "farmland": 20,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 7.2,
+      "riskComponents": {
+        "factoryPriority1": 2,
+        "factoryPriority2": 3,
+        "factoryPriority3": 1.2,
+        "farmland": 1,
+        "fireHistory": 0
+      },
+      "riskRank": 89
     },
     {
       "id": "range-way-527410795",
@@ -3330,7 +4977,16 @@
         "factoryPriority3": 0,
         "farmland": 0,
         "fireHistory": 1
-      }
+      },
+      "riskScore": 20,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0,
+        "fireHistory": 20
+      },
+      "riskRank": 62
     },
     {
       "id": "range-way-830664839",
@@ -3348,7 +5004,16 @@
         "factoryPriority3": 1,
         "farmland": 12,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 5.1,
+      "riskComponents": {
+        "factoryPriority1": 3,
+        "factoryPriority2": 1.2,
+        "factoryPriority3": 0.3,
+        "farmland": 0.6,
+        "fireHistory": 0
+      },
+      "riskRank": 98
     },
     {
       "id": "range-way-1338953174",
@@ -3366,7 +5031,16 @@
         "factoryPriority3": 0,
         "farmland": 3,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.2,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.2,
+        "fireHistory": 0
+      },
+      "riskRank": 187
     },
     {
       "id": "range-way-1257174240",
@@ -3384,7 +5058,16 @@
         "factoryPriority3": 1,
         "farmland": 29,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.8,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 1.5,
+        "fireHistory": 0
+      },
+      "riskRank": 150
     },
     {
       "id": "range-way-1256866474",
@@ -3402,7 +5085,16 @@
         "factoryPriority3": 6,
         "farmland": 13,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 2.4,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 1.8,
+        "farmland": 0.7,
+        "fireHistory": 0
+      },
+      "riskRank": 133
     },
     {
       "id": "range-way-1257174245",
@@ -3420,7 +5112,16 @@
         "factoryPriority3": 2,
         "farmland": 13,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 1.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.6,
+        "farmland": 0.7,
+        "fireHistory": 0
+      },
+      "riskRank": 161
     },
     {
       "id": "range-way-1254885995",
@@ -3438,7 +5139,16 @@
         "factoryPriority3": 1,
         "farmland": 5,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.6,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0.3,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 177
     },
     {
       "id": "range-way-484156998",
@@ -3456,7 +5166,16 @@
         "factoryPriority3": 0,
         "farmland": 6,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0.3,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0.3,
+        "fireHistory": 0
+      },
+      "riskRank": 184
     },
     {
       "id": "myeongbongsan",
@@ -3474,7 +5193,37 @@
         "factoryPriority3": 0,
         "farmland": 0,
         "fireHistory": 0
-      }
+      },
+      "riskScore": 0,
+      "riskComponents": {
+        "factoryPriority1": 0,
+        "factoryPriority2": 0,
+        "factoryPriority3": 0,
+        "farmland": 0,
+        "fireHistory": 0
+      },
+      "riskRank": 190
     }
-  ]
+  ],
+  "riskFormula": {
+    "version": "2026-06-23-weighted-surrounding-v1",
+    "score": "(factoryPriority1 * 1.0) + (factoryPriority2 * 0.6) + (factoryPriority3 * 0.3) + (farmland * 0.05) + (fireHistory * 20)",
+    "weights": {
+      "factoryPriority1": 1,
+      "factoryPriority2": 0.6,
+      "factoryPriority3": 0.3,
+      "farmland": 0.05,
+      "fireHistory": 20
+    },
+    "roundedTo": 1
+  },
+  "riskStats": {
+    "minScore": 0,
+    "maxScore": 795.2,
+    "meanScore": 37.6,
+    "medianScore": 5.1,
+    "topMountainId": "seobongsan",
+    "topMountainName": "서봉산",
+    "topMountainScore": 795.2
+  }
 }

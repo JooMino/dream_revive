@@ -201,11 +201,13 @@
     }
     .mountain-surrounding-summary {
       box-sizing: border-box;
-      width: 286px;
+      width: min(286px, calc(100vw - 24px));
+      max-width: calc(100vw - 24px);
+      max-height: calc(100vh - 24px);
       margin-top: 8px;
       border: 1px solid rgba(31, 41, 55, .18);
       border-radius: 8px;
-      overflow: hidden;
+      overflow: auto;
       color: #172317;
       background: rgba(255, 255, 255, .96);
       box-shadow: 0 8px 24px rgba(24, 36, 26, .18);
@@ -222,7 +224,10 @@
       background: #f6f8f4;
       font-weight: 900;
     }
-    .mountain-summary-title b { font-size: 14px; }
+    .mountain-summary-title b {
+      min-width: 0;
+      font-size: 14px;
+    }
     .mountain-summary-chip {
       flex: 0 0 auto;
       padding: 3px 7px;
@@ -250,15 +255,17 @@
       font-size: 16px;
       font-weight: 950;
       line-height: 1.2;
+      overflow-wrap: anywhere;
     }
     .mountain-summary-meta {
       color: #526052;
       font-size: 12px;
       font-weight: 800;
+      overflow-wrap: anywhere;
     }
     .mountain-summary-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
       gap: 7px;
     }
     .mountain-summary-card {
@@ -274,7 +281,7 @@
       color: #405040;
       font-size: 11px;
       font-weight: 900;
-      white-space: nowrap;
+      line-height: 1.2;
     }
     .mountain-summary-value {
       display: block;
@@ -282,6 +289,7 @@
       font-size: 18px;
       font-weight: 950;
       line-height: 1.15;
+      overflow-wrap: anywhere;
     }
     .mountain-summary-empty {
       padding: 12px 9px;
@@ -377,6 +385,8 @@
       ],
       ["라벨", mountain.labelVisible === false ? "숨김" : "표시"],
       ["크기", mountain.sizeTag || ""],
+      ["위험도 점수", formatRiskScore(mountain.riskScore)],
+      ["위험도 순위", formatRiskRank(mountain.riskRank)],
       ["고도", elevationText],
       ["면적", mountain.areaLabel || ""],
       [
@@ -622,6 +632,13 @@
 
   const SUMMARY_BASE_RADIUS_METERS = 2000;
   const SUMMARY_MIN_RADIUS_METERS = 200;
+  const RISK_SCORE_WEIGHTS = {
+    factoryPriority1: 1.0,
+    factoryPriority2: 0.6,
+    factoryPriority3: 0.3,
+    farmland: 0.05,
+    fireHistory: 20,
+  };
 
   function largeAverageAreaSqm() {
     const areas = mountains
@@ -715,11 +732,38 @@
       }
     });
 
+    result.riskScore = calculateRiskScore({
+      factoryPriority1: result.factories[1],
+      factoryPriority2: result.factories[2],
+      factoryPriority3: result.factories[3],
+      farmland: result.farmland,
+      fireHistory: result.fires,
+    });
     return result;
   }
 
   function formatKm(meters) {
     return (meters / 1000).toFixed(2).replace(/\.00$/, "") + "km";
+  }
+
+  function calculateRiskScore(counts) {
+    const score =
+      (Number(counts.factoryPriority1) || 0) * RISK_SCORE_WEIGHTS.factoryPriority1 +
+      (Number(counts.factoryPriority2) || 0) * RISK_SCORE_WEIGHTS.factoryPriority2 +
+      (Number(counts.factoryPriority3) || 0) * RISK_SCORE_WEIGHTS.factoryPriority3 +
+      (Number(counts.farmland) || 0) * RISK_SCORE_WEIGHTS.farmland +
+      (Number(counts.fireHistory) || 0) * RISK_SCORE_WEIGHTS.fireHistory;
+    return Math.round(score * 10) / 10;
+  }
+
+  function formatRiskScore(value) {
+    const score = Number(value);
+    return Number.isFinite(score) ? score.toLocaleString("ko-KR", { maximumFractionDigits: 1 }) + "점" : "";
+  }
+
+  function formatRiskRank(value) {
+    const rank = Number(value);
+    return Number.isFinite(rank) && rank > 0 ? rank.toLocaleString("ko-KR") + "위" : "";
   }
 
   function summaryCard(label, value) {
@@ -750,6 +794,11 @@
     selectedMountainForSummary = mountain;
     if (!mountainSummaryContainer) return;
     const counts = countNear(mountain);
+    const storedRiskScore = Number(mountain.riskScore);
+    const storedRiskRank = Number(mountain.riskRank);
+    const riskScore = Number.isFinite(storedRiskScore) ? storedRiskScore : counts.riskScore;
+    const riskRank = Number.isFinite(storedRiskRank) ? storedRiskRank : null;
+    const riskMeta = [formatRiskScore(riskScore), formatRiskRank(riskRank)].filter(Boolean).join(" · ");
     mountainSummaryContainer.innerHTML = `
       <div class="mountain-summary-title">
         <b>산 주변 집계</b>
@@ -758,9 +807,11 @@
       <div class="mountain-summary-body">
         <div class="mountain-summary-headline">
           <span class="mountain-summary-name">${escapeHtml(mountain.name)}</span>
-          <span class="mountain-summary-meta">주변 반경 ${escapeHtml(formatKm(counts.radius))} · ${escapeHtml(mountain.sizeTag || "")}</span>
+          <span class="mountain-summary-meta">주변 반경 ${escapeHtml(formatKm(counts.radius))} · ${escapeHtml(mountain.sizeTag || "")}${riskMeta ? " · " + escapeHtml(riskMeta) : ""}</span>
         </div>
         <div class="mountain-summary-grid">
+          ${summaryCard("위험도", formatRiskScore(riskScore))}
+          ${summaryCard("위험 순위", formatRiskRank(riskRank))}
           ${summaryCard("공장 1순위", counts.factories[1].toLocaleString("ko-KR") + "개")}
           ${summaryCard("공장 2순위", counts.factories[2].toLocaleString("ko-KR") + "개")}
           ${summaryCard("공장 3순위", counts.factories[3].toLocaleString("ko-KR") + "개")}
@@ -861,6 +912,18 @@
     }
   }
 
+  function keepSummaryControlFirst() {
+    const corner = map._controlCorners && map._controlCorners.topright;
+    if (
+      corner &&
+      mountainSummaryContainer &&
+      mountainSummaryContainer.parentNode === corner &&
+      corner.firstChild !== mountainSummaryContainer
+    ) {
+      corner.insertBefore(mountainSummaryContainer, corner.firstChild);
+    }
+  }
+
   mountains.forEach((mountain) => {
     const marker = L.marker([mountain.lat, mountain.lon], {
       icon: markerIcon(mountain),
@@ -892,6 +955,7 @@
     return container;
   };
   summaryControl.addTo(map);
+  keepSummaryControlFirst();
 
   window.addEventListener("dream:farmlandfeatureschange", function () {
     if (selectedMountainForSummary) {
