@@ -51,6 +51,8 @@
   const highlight = L.layerGroup().addTo(map);
   const riskLegend = document.getElementById("wildfire-risk-legend");
   let mountainPanelContainer = null;
+  let mountainSummaryContainer = null;
+  let selectedMountainForSummary = null;
 
   const styleEl = document.createElement("style");
   styleEl.textContent = `
@@ -197,7 +199,100 @@
       border-color: #2f6b47;
       background: #e7f1e8;
     }
-  `;
+    .mountain-surrounding-summary {
+      box-sizing: border-box;
+      width: 286px;
+      margin-top: 8px;
+      border: 1px solid rgba(31, 41, 55, .18);
+      border-radius: 8px;
+      overflow: hidden;
+      color: #172317;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 8px 24px rgba(24, 36, 26, .18);
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+    }
+    .mountain-summary-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 34px;
+      padding: 8px 10px;
+      border-bottom: 1px solid #d9dfd5;
+      background: #f6f8f4;
+      font-weight: 900;
+    }
+    .mountain-summary-title b { font-size: 14px; }
+    .mountain-summary-chip {
+      flex: 0 0 auto;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: #2f5d3a;
+      background: #e7f1e8;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .mountain-summary-body {
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+    }
+    .mountain-summary-headline {
+      display: grid;
+      gap: 3px;
+      padding: 8px 9px;
+      border: 1px solid #dce5d8;
+      border-radius: 6px;
+      background: #fbfcfa;
+    }
+    .mountain-summary-name {
+      font-size: 16px;
+      font-weight: 950;
+      line-height: 1.2;
+    }
+    .mountain-summary-meta {
+      color: #526052;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .mountain-summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+    .mountain-summary-card {
+      min-height: 54px;
+      padding: 8px;
+      border: 1px solid #dfe7dc;
+      border-radius: 6px;
+      background: #ffffff;
+    }
+    .mountain-summary-label {
+      display: block;
+      margin-bottom: 4px;
+      color: #405040;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .mountain-summary-value {
+      display: block;
+      color: #111827;
+      font-size: 18px;
+      font-weight: 950;
+      line-height: 1.15;
+    }
+    .mountain-summary-empty {
+      padding: 12px 9px;
+      border: 1px solid #dce5d8;
+      border-radius: 6px;
+      color: #526052;
+      background: #fbfcfa;
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+    }  `;
   document.head.appendChild(styleEl);
 
   if (riskLegend) {
@@ -235,7 +330,7 @@
       mountain.name = edit.name;
     }
     if (edit.sizeTag) {
-      mountain.sizeTag = edit.sizeTag;
+      mountain.sizeTag = ["\uCD08\uC18C\uD615", "\uC0B0\uC815\uC0C1"].includes(edit.sizeTag) ? "소형" : edit.sizeTag;
     }
     if (typeof edit.labelVisible === "boolean") {
       mountain.labelVisible = edit.labelVisible;
@@ -323,7 +418,7 @@
   }
 
   function editorFormHtml(mountain) {
-    const sizeTags = ["대형", "중형", "소형", "초소형", "산정상"];
+    const sizeTags = ["대형", "중형", "소형"];
     const currentSize = mountain.sizeTag || "";
     return `
       <div class="mountain-marker-editor">
@@ -525,6 +620,169 @@
     });
   }
 
+  const SUMMARY_BASE_RADIUS_METERS = 2000;
+  const SUMMARY_MIN_RADIUS_METERS = 200;
+
+  function largeAverageAreaSqm() {
+    const areas = mountains
+      .filter((item) => item.sizeTag === "대형")
+      .map((item) => Number(item.areaSqm))
+      .filter((area) => Number.isFinite(area) && area > 0);
+    if (!areas.length) {
+      return 500000;
+    }
+    return areas.reduce((sum, area) => sum + area, 0) / areas.length;
+  }
+
+  function surroundingRadiusMeters(mountain) {
+    const area = Number(mountain.areaSqm);
+    if (!Number.isFinite(area) || area <= 0) {
+      return SUMMARY_MIN_RADIUS_METERS;
+    }
+    const ratio = Math.sqrt(area / largeAverageAreaSqm());
+    return Math.max(SUMMARY_MIN_RADIUS_METERS, SUMMARY_BASE_RADIUS_METERS * ratio);
+  }
+
+  function distanceMeters(lat1, lon1, lat2, lon2) {
+    const toRad = Math.PI / 180;
+    const r = 6371008.8;
+    const dLat = (lat2 - lat1) * toRad;
+    const dLon = (lon2 - lon1) * toRad;
+    const a = Math.sin(dLat / 2) ** 2 +
+      Math.cos(lat1 * toRad) * Math.cos(lat2 * toRad) * Math.sin(dLon / 2) ** 2;
+    return 2 * r * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  function featureCenter(feature) {
+    const bounds = L.latLngBounds([]);
+    function walk(coords) {
+      if (!Array.isArray(coords)) return;
+      if (typeof coords[0] === "number") {
+        const lng = Number(coords[0]);
+        const lat = Number(coords[1]);
+        if (Number.isFinite(lat) && Number.isFinite(lng)) bounds.extend([lat, lng]);
+        return;
+      }
+      coords.forEach(walk);
+    }
+    if (feature && feature.__dreamCenter) return feature.__dreamCenter;
+    if (feature && feature.geometry) walk(feature.geometry.coordinates);
+    return bounds.isValid() ? bounds.getCenter() : null;
+  }
+
+  function farmlandFeaturesForSummary() {
+    if (Array.isArray(window.dreamFarmmapFarmlandFeatures)) {
+      return window.dreamFarmmapFarmlandFeatures;
+    }
+    const data = window.dreamFarmmapFarmlandData;
+    return data && Array.isArray(data.features) ? data.features : [];
+  }
+
+  function countNear(mountain) {
+    const lat = Number(mountain.lat);
+    const lon = Number(mountain.lon);
+    const radius = surroundingRadiusMeters(mountain);
+    const result = { radius, factories: { 1: 0, 2: 0, 3: 0 }, farmland: 0, fires: 0 };
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return result;
+
+    const factories = Array.isArray(window.dreamFactoryPriorityData) ? window.dreamFactoryPriorityData : [];
+    factories.forEach((item) => {
+      const itemLat = Number(item.lat);
+      const itemLon = Number(item.lon);
+      if (!Number.isFinite(itemLat) || !Number.isFinite(itemLon)) return;
+      if (distanceMeters(lat, lon, itemLat, itemLon) > radius) return;
+      const priority = [1, 2, 3].includes(Number(item.priority)) ? Number(item.priority) : 3;
+      result.factories[priority] += 1;
+    });
+
+    farmlandFeaturesForSummary().forEach((feature) => {
+      const center = featureCenter(feature);
+      if (!center) return;
+      if (distanceMeters(lat, lon, center.lat, center.lng) <= radius) {
+        result.farmland += 1;
+      }
+    });
+
+    const fireRecords = window.dreamFireHistoryLayer && Array.isArray(window.dreamFireHistoryLayer.records)
+      ? window.dreamFireHistoryLayer.records
+      : [];
+    fireRecords.forEach((item) => {
+      const itemLat = Number(item.lat);
+      const itemLon = Number(item.lng);
+      if (!Number.isFinite(itemLat) || !Number.isFinite(itemLon)) return;
+      if (distanceMeters(lat, lon, itemLat, itemLon) <= radius) {
+        result.fires += 1;
+      }
+    });
+
+    return result;
+  }
+
+  function formatKm(meters) {
+    return (meters / 1000).toFixed(2).replace(/\.00$/, "") + "km";
+  }
+
+  function summaryCard(label, value) {
+    return `
+      <div class="mountain-summary-card">
+        <span class="mountain-summary-label">${escapeHtml(label)}</span>
+        <span class="mountain-summary-value">${escapeHtml(value)}</span>
+      </div>
+    `;
+  }
+
+  function showSurroundingRadiusLayer(mountain) {
+    const lat = Number(mountain.lat);
+    const lon = Number(mountain.lon);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+    highlight.clearLayers();
+    L.circle([lat, lon], {
+      radius: surroundingRadiusMeters(mountain),
+      color: "#2563eb",
+      weight: 2,
+      opacity: 0.95,
+      fillColor: "#60a5fa",
+      fillOpacity: 0.14,
+      interactive: false,
+    }).addTo(highlight);
+  }
+  function updateMountainSummary(mountain) {
+    selectedMountainForSummary = mountain;
+    if (!mountainSummaryContainer) return;
+    const counts = countNear(mountain);
+    mountainSummaryContainer.innerHTML = `
+      <div class="mountain-summary-title">
+        <b>산 주변 집계</b>
+        <span class="mountain-summary-chip">마커 선택됨</span>
+      </div>
+      <div class="mountain-summary-body">
+        <div class="mountain-summary-headline">
+          <span class="mountain-summary-name">${escapeHtml(mountain.name)}</span>
+          <span class="mountain-summary-meta">주변 반경 ${escapeHtml(formatKm(counts.radius))} · ${escapeHtml(mountain.sizeTag || "")}</span>
+        </div>
+        <div class="mountain-summary-grid">
+          ${summaryCard("공장 1순위", counts.factories[1].toLocaleString("ko-KR") + "개")}
+          ${summaryCard("공장 2순위", counts.factories[2].toLocaleString("ko-KR") + "개")}
+          ${summaryCard("공장 3순위", counts.factories[3].toLocaleString("ko-KR") + "개")}
+          ${summaryCard("논밭", counts.farmland.toLocaleString("ko-KR") + "개")}
+          ${summaryCard("화재 발생 기록", counts.fires.toLocaleString("ko-KR") + "개")}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderEmptyMountainSummary() {
+    if (!mountainSummaryContainer) return;
+    mountainSummaryContainer.innerHTML = `
+      <div class="mountain-summary-title">
+        <b>산 주변 집계</b>
+        <span class="mountain-summary-chip">대기</span>
+      </div>
+      <div class="mountain-summary-body">
+        <div class="mountain-summary-empty">산이름 마커를 클릭하면 주변 공장, 논밭, 화재 기록 개수가 표시됩니다.</div>
+      </div>
+    `;
+  }
   function bindMarkerEditor(mountain, marker) {
     marker.on("popupopen", function () {
       window.setTimeout(function () {
@@ -585,15 +843,8 @@
       duration: 0.7,
     });
     marker.openPopup();
-
-    highlight.clearLayers();
-    L.circleMarker([mountain.lat, mountain.lon], {
-      radius: 18,
-      color: "#2f6b47",
-      weight: 4,
-      fill: false,
-      opacity: 0.95,
-    }).addTo(highlight);
+    updateMountainSummary(mountain);
+    showSurroundingRadiusLayer(mountain);
 
     document
       .querySelectorAll(".mountain-panel button")
@@ -617,6 +868,10 @@
     });
     marker.bindPopup(popupHtml(mountain), { maxWidth: 320 });
     bindMarkerEditor(mountain, marker);
+    marker.on("click", function () {
+      updateMountainSummary(mountain);
+      showSurroundingRadiusLayer(mountain);
+    });
     marker.addTo(layer);
     markerById.set(mountain.id, marker);
   });
@@ -627,6 +882,22 @@
     layerControl.addOverlay(layer, "산이름 마커");
   }
 
+  const summaryControl = L.control({ position: "topright" });
+  summaryControl.onAdd = function () {
+    const container = L.DomUtil.create("div", "mountain-surrounding-summary leaflet-control");
+    mountainSummaryContainer = container;
+    L.DomEvent.disableClickPropagation(container);
+    L.DomEvent.disableScrollPropagation(container);
+    renderEmptyMountainSummary();
+    return container;
+  };
+  summaryControl.addTo(map);
+
+  window.addEventListener("dream:farmlandfeatureschange", function () {
+    if (selectedMountainForSummary) {
+      updateMountainSummary(selectedMountainForSummary);
+    }
+  });
   const panel = L.control({ position: "topleft" });
   panel.onAdd = function () {
     const container = L.DomUtil.create("div", "mountain-panel");

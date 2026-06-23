@@ -1,4 +1,4 @@
-// FarmMap farmland layer loaded from the official FarmMap Data API.
+﻿// FarmMap farmland layer loaded from the official FarmMap Data API.
 (function () {
   "use strict";
 
@@ -322,6 +322,10 @@
 
   function renderFeatures(features) {
     currentFeatures = Array.isArray(features) ? features : [];
+    window.dreamFarmmapFarmlandFeatures = currentFeatures;
+    window.dispatchEvent(new CustomEvent("dream:farmlandfeatureschange", {
+      detail: { count: currentFeatures.length }
+    }));
     drawCurrentFeatures();
   }
 
